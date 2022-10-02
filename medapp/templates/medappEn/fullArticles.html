@@ -1,0 +1,251 @@
+{% extends 'medapp/articlesHomePage.html' %}
+
+{% load static %}
+         
+         
+{% block articlesBelowSearchBar %}       
+            <br>
+            <div class="row">
+                <div class="col-lg-10 profileArticleBlock fullArticle">
+
+                        <span class="article_title" >{{Article.title}}</span> 
+                        <span class="publishDate"> &nbsp;- ( {{Article.datePosted}} ) -   </span>
+                        <p class="author"> ~ {{Article.author.user.first_name}} &nbsp; {{Article.author.user.last_name}} ~</p>
+                        <span>
+                            {%  if Article.rating == 5 %}
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span> 
+                      {% elif Article.rating == 4 %}
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star "></span> 
+                      {% elif Article.rating == 3 %}
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star "></span>
+                      <span class="fa fa-star "></span> 
+                      {% elif Article.rating == 2 %}
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star "></span>
+                      <span class="fa fa-star "></span>
+                      <span class="fa fa-star "></span> 
+                      {% elif Article.rating == 1 %}
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star "></span>
+                      <span class="fa fa-star "></span>
+                      <span class="fa fa-star "></span>
+                      <span class="fa fa-star "></span> 
+                      {% endif %}
+                        </span>
+                        <span class="approvedByNum"> {{Article.numOfApprovals}} Approvals </span>
+                        {% if user.is_authenticated %}     
+                        {% if isLiked %}
+                        <button class="likeBtn likedBtn" data-url="{% url 'likeArticle'%}" id = "{{Article.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% else %}
+                        <button class="likeBtn" data-url="{% url 'likeArticle'%}" id = "{{Article.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% endif %}
+
+                        {% if isFavourite %}
+                        <button class="favBtn favedBtn" data-url="{% url 'favouriteArticle'%}" id = "{{Article.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% else %}
+                        <button class="favBtn" data-url="{% url 'favouriteArticle'%}" id = "{{Article.id}}" onclick="likeFavDoctor(this)"></button><br>
+                        {% endif %}
+                        {% endif %}
+
+                        <hr>
+                        <p class="articleBody">                     
+                            {{Article.body|linebreaksbr}}
+                        </p>
+                        
+                        <button type="button" class="btnFullArticle">Read Article</button>
+                        <a href = "#"><span class = "labelText" data-bs-toggle="modal" data-bs-target="#reviewOnArticle" > Leave a review </span></a>
+
+                </div>
+                <div class="reviewContainer articleReviews">
+                    <div class="reviewBox">
+                        {% for r in reviewArticleList %}
+
+                        <div class="reviewTop">
+                            <div> 
+                                <h5> {{r.author.user.first_name}} &nbsp; {{r.author.user.last_name}} </h5> &emsp; <span class = 'date' > ( {{r.datePosted}} ) </span> {%if r.authorType == "Doctor"%}<img src = "{% static 'images/doctorIcon.png' %}" style = "width: 40px; height: 40px;">{% endif %}
+                            </div>
+                            &nbsp;  •  <span>
+                                {%  if r.stars == 5 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span> 
+                          {% elif r.stars == 4 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif r.stars == 3 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif r.stars == 2 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif r.stars == 1 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% endif %}
+                            </span>• <br> 
+                        </div>                                         
+                        {% if r.author.user == user %}
+
+                          <button type="button" class="smallBtn smallBtnArticle" id="saveBtnMsg{{r.id}}" data-url = "{% url 'editReviewField' %}" data-textNeededID = "articleBody{{r.id}}" data-reviewID = "{{r.id}}" data-commentType = "ReviewArticle"  data-fieldToSave = "body" data-labelID = "savelabele{{r.id}}" onclick = "changeReviewArticleField(this)" onmouseover="showAdviceLabel(this)" onmouseout = "hideAdviceLabel(this)" >Save</button>
+                          <a href = "{% url 'deleteArticleReview' r.id Article.id %}" class = "label" ><button type="button" class="smallBtn smallBtnArticle" data-labelID = "savelabele{{response.id}}">Delete</button></a>
+                          <label class = "label adviceLabel" id = "savelabele{{r.id}}">You can delete/edit text of your review! - just click on your review text.</label>
+                          <textarea class="reviewText" id = "articleBody{{r.id}}" style="display: block; width: 100%; max-height: 50px;">{{r.body}}</textarea>
+                          
+                        {% else %}
+
+                          <label for = "reviewResponseInput{{r.id}}" href = "#" onclick="displayInput(this)">Respond</label>
+                          <input type="text" id = "reviewResponseInput{{r.id}}" data-targetID = "reviewResponseInput{{r.id}}" name = "responseOnReview" data-reviewID = "{{r.id}}" style = "display: none;">  <button type="button" class="smallBtn" id="reviewResponseInput{{r.id}}Btn" data-neededID = "reviewResponseInput{{r.id}}" data-url = "{% url 'createResponseOnReview' %}" data-reviewID = "{{r.id}}" onclick = "respondOnReview(this)" style = "display: none;" >Save</button>
+                          <label id = "commentResult{{r.id}}" onclick="displayInput(this)"></label>
+
+                          <div class="reviewText" id = "articleBody">
+                              ~ &emsp; {{r.body}}<br>
+                          </div>
+
+                        {% endif %}
+                          <div class="reviewResponseBox">
+                                  
+                              {% for response in r.respondcomment_set.all %}
+                                <div class="reviewResponseTop" >
+                                    <div> 
+                                      <h5 style = "display: inline;">{{response.author.user.first_name}} &nbsp; {{response.author.user.last_name}}</h5>   <span class = "date"> ( {{response.datePosted}} ) </span> {%if response.authorType == "Doctor"%}<img src = "{% static 'images/doctorIcon.png' %}" style = "width: 20px; height: 20px; display: inline;">{% endif %}
+                                    </div>
+                                  
+                                </div>
+
+                              {% if response.author.user == user %}
+                                <button type="button" class="smallBtn smallBtnArticle" id="saveBtnMsg{{response.id}}" data-url = "{% url 'editReviewField' %}" data-textNeededID = "responseBody{{response.id}}" data-reviewID = "{{response.id}}" data-commentType = "Response"  data-fieldToSave = "body" data-labelID = "savelabele{{response.id}}" onclick = "changeReviewArticleField(this)" onmouseover="showAdviceLabel(this)" onmouseout = "hideAdviceLabel(this)">Save</button>
+                                <a href = "{% url 'deleteResponseReview' response.id Article.id %}" class = "label" ><button type="button" class="smallBtn smallBtnArticle" data-labelID = "savelabele{{response.id}}" >Delete</button></a>
+                                <label class = "label adviceLabel" id = "savelabele{{response.id}}">You can delete/edit text of your review! - just click on your review text.</label>
+
+                                <textarea class="reviewResponseText" id = "responseBody{{response.id}}" style="display: block; width: 100%; max-height: 50px;">{{response.body}}</textarea>
+                                  <br>
+
+                              {% else %}
+                                <div class="reviewResponseText" >
+                                      ~ {{response.body}}<br>
+                                </div>
+                              {% endif %}
+
+                              {% endfor %}
+
+                      </div>
+
+
+                        {% endfor %}
+
+
+                    </div>  
+
+            </div>
+        </div>
+
+        <div class="modal fade " id="reviewOnArticle" tabindex="-1">
+            <div class="modal-dialog">
+
+              <div class="modal-content">
+                <div class="modal-header" style = "background-color: #a12554;">
+                  <h5 class="modal-title" style = "background-color: #a12554;">Please leave a review about article...</h5>
+
+
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class = "ratingBlock" id = "ratingBlock" style = "width: 30%;">
+                        <label for = "reviewAboutPatient">Rate article: </label><br>
+                        <span class="fa fa-star" id = "star1" data-ratingValue = "1" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                        <span class="fa fa-star " id = "star2" data-ratingValue = "2" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                        <span class="fa fa-star " id = "star3" data-ratingValue = "3" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                        <span class="fa fa-star" id = "star4" data-ratingValue = "4" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                        <span class="fa fa-star" id = "star5" data-ratingValue = "5" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span> 
+                    </div>
+
+                    <input type="hidden" id = "ratingValueToPass" name = "ratingToArticle" value = "">
+                   
+                    <br> 
+                
+                  <label for = "reviewAboutArticle"> Give your comment: </label>
+                  <textarea type = "text" name = "reviewAboutArticle" id = "reviewAboutArticle" class = "inputForReview" placeholder="Patient didnt provocate any dispute..."></textarea>
+                  <input type="hidden" id = "articleID" name = "articleIDD" value = "{{Article.id}}">
+
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" data-url="{% url 'createArticleReview' %}" data-consultancyID="{{consultancy.id}}" onclick="sendArticleReview(this)">Send comment</button>
+                </div>
+              </div>
+            
+
+            </div>
+          </div>
+
+          <div class="modal fade " id="respondOnComment" tabindex="-1">
+            <div class="modal-dialog">
+
+              <div class="modal-content">
+                <div class="modal-header" style = "background-color: #a12554;">
+                  <h5 class="modal-title" style = "background-color: #a12554;">Please leave a review about article...</h5>
+
+
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class = "ratingBlock" id = "ratingBlock" style = "width: 30%;">
+                        <label for = "reviewAboutPatient">Rate article: </label>
+                        <span class="fa fa-star " id = "star1" data-ratingValue = "1" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                        <span class="fa fa-star " id = "star2" data-ratingValue = "2" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                        <span class="fa fa-star " id = "star3" data-ratingValue = "3" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                        <span class="fa fa-star" id = "star4" data-ratingValue = "4" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                        <span class="fa fa-star" id = "star5" data-ratingValue = "5" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span> 
+                    </div>
+
+                    <input type="hidden" id = "ratingValueToPass" name = "ratingToArticle" value = "">
+                   
+                    <br> 
+                
+                  <label for = "reviewAboutArticle"> Give your comment: </label>
+                  <textarea type = "text" name = "reviewAboutArticle" id = "reviewAboutArticle" class = "inputForReview" placeholder="Patient didnt provocate any dispute..."></textarea>
+                  <input type="hidden" id = "articleID" name = "articleIDD" value = "{{Article.id}}">
+
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" data-url="{% url 'createArticleReview' %}" data-consultancyID="{{consultancy.id}}" onclick="sendArticleReview(this)">Send comment</button>
+                </div>
+              </div>
+            
+
+            </div>
+          </div>
+        {% endblock articlesBelowSearchBar %}
+
+
+                
+  

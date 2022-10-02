@@ -1,0 +1,122 @@
+{% extends 'medapp/base.html' %}
+
+{% block headerOfPage%}
+            <div class="row">
+                <div class="col-lg">
+                    <h1>{{anamnesis.patient.user.first_name}}'s Anamnesis</h1>
+                </div>
+            </div>
+{% endblock headerOfPage%}
+
+{% block belowNavbar %}
+                <div class="col-lg-3">
+                    <div class="imgBlock"> <img src="{{anamnesis.patient.profileIMG.url}}"> </div>
+                    <a href = "{% url 'getProfile' %}"> <button class="navigationBtn">Go to profile</button> </a>
+                </div>
+                <div class="col-lg-6">
+                    <form class="userDetailsForm" action="/action_page.php" method="POST">
+                       
+                        {% csrf_token %}                        
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputPlaceOfBirth" class="form-label">Place of Birth</label>
+                            <br>
+                            <span> • {{anamnesis.placeOfBirth}}</span>
+                        </div>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputParentsAge" class="form-label">Parents Age at birth</label>
+                            <br>
+                            <span> • {{anamnesis.parentsAgeAtBirth}}</span>
+                        </div>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputDescriptionOfBirth" class="form-label">Description Of Birth</label>
+                            <br>
+                            <span> • {{anamnesis.descriptionOfBirth}}</span>
+                        </div>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputAboutEAT" class="form-label">About EAT</label>
+                            <br>
+                            <span> • {{anamnesis.aboutEAT}}</span>
+
+                        </div>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputPremorbidState" class="form-label">Premorbid State</label>
+                            <br>
+                            <span> • {{anamnesis.premorbidState}}</span>
+
+                        </div>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputPeculiaritiesInDevelopment" class="form-label">Peculiarities In Development</label>
+                            <br>
+                            <span> • {{anamnesis.peculiaritiesInDevelopment}}</span>
+
+                        </div>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputLifeConditions" class="form-label">Life Conditions</label>
+                            <br>
+                            <span> • {{anamnesis.lifeConditions}}</span>
+
+                        </div>
+                        <hr>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputJobDescription" class="form-label">Job Description</label>
+                            <br>
+                            <span> • {{anamnesis.jobDescription}}</span>
+
+                        </div>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputBadHabits" class="form-label">Bad Habits</label>
+                            <br>
+                            <span> • {{anamnesis.badHabits}}</span>
+
+                        </div>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputLifeStyle" class="form-label">Life Style</label>
+                            <br>
+                            <span> • {{anamnesis.lifeStyle}}</span>
+  
+                        </div>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputDietDescription" class="form-label">Diet Description</label>
+                            <br>
+                            <span> • {{anamnesis.dietDescription}}</span>
+
+                        </div>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputPastIllnesses" class="form-label">Past Illnesses</label>
+                            <br>
+                            <span> • {{anamnesis.pastIllnesses}}</span>
+
+                        </div>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputSurgicalInterventions" class="form-label">Surgical Interventions</label>
+                            <br>
+                            <span> • {{anamnesis.surgicalInterventions}}</span>
+
+                        </div>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputHereditaryDiseases" class="form-label">Hereditary Diseases</label>
+                            <br>
+                            <span> • {{anamnesis.hereditaryDiseases}}</span>
+
+                        </div>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputPastInfections" class="form-label">Past Infections</label>
+                            <br>
+                            <span> • {{anamnesis.pastInfections}}</span>
+
+                        </div>
+                        <div class="mb-3 anamnesisDetails">
+                            <label for="InputAllergicHistory" class="form-label">Allergic History</label>
+                            <br>
+                            <span> • {{anamnesis.allergicHistory}}</span>
+
+                        </div>
+
+                        
+                      </form>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+
+{% endblock belowNavbar %}

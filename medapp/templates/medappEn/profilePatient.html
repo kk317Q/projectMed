@@ -1,0 +1,323 @@
+{% extends 'medapp/base.html'%}
+
+{% load static %}
+
+
+{% block belowNavbar %}
+            <div class="row">
+                <div class="col-lg">
+                    <h1>Hello, {{user.first_name}}</h1>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-lg-6 profileBlock1">
+                    
+                    <div class="imgBlock"> <img src="{{Patient.profileIMG.url}}"> </div>
+                    <div class="profileMainData"> 
+                        <span class="userFName">  {{user.first_name}} &nbsp; {{user.last_name}} </span>
+
+                        <span class="userCitation">~ {{Patient.username}} ~</span><br>
+
+                        <span class="userDOB"> {{Patient.dob}} </span> 
+                        <span class="userLocation"> {{Patient.location}} </span>
+                        <span class="userLocation"> {{Patient.malefemale}} </span>
+
+                        
+                        {%  if Patient.rating == 5 %}
+                          <span class="fa first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span> 
+                          {% elif Patient.rating == 4 %}
+                          <span class="fa first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif Patient.rating == 3 %}
+                          <span class="fa first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif Patient.rating == 2 %}
+                          <span class="fa first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif Patient.rating == 1 %}
+                          <span class="fa  first fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% endif %}
+
+                    </div>
+                    <br>
+                        <a href="{% url 'editProfilePatient'%}"> <button type="button" class="editProfileBtn">Edit Profile</button> </a> 
+                        <a href="{% url 'getRegistry'%} ">  <button type="button" class="registryBtn">Registry</button> </a> 
+                        <a href="{% url 'anamnesis' %}" ><button type="button" class="anamnesisBtn">Anamnesis</button></a>
+
+
+
+                </div>
+                
+
+                <div class="col-lg-4 profileBlockRight BtnGroup">
+             
+                    <div class="col-lg-12">
+                        <div class="ConsultancyBlock currentConsultancyBlock">
+                            <h4>Current Consultancies</h4>
+                            
+
+                            {% for c, age in ConsultancyList%}
+
+
+                                {% if c.status == "Active" or c.status == "Awaiting Close" %} 
+                                <a href="{% url 'getConsultancy' c.id %}"  data-requestid = "{{c.id}}"  class="-" >~ {{c.consultancyDoctor.user.first_name}} &nbsp; {{c.consultancyDoctor.user.last_name}} &nbsp; {{age}} | Status:
+
+                                <span class = "requestStatus inProcess" id = "reqStatus"> {{c.status}} </span>
+                                {% elif c.status == "Dispute" %}
+                                <a href="{% url 'getConsultancy' c.id %}"  data-requestid = "{{c.id}}"  class="-" >~ {{c.consultancyDoctor.user.first_name}} &nbsp; {{c.consultancyDoctor.user.last_name}} &nbsp; {{age}} | Status:
+
+                                <span class = "requestStatus notSolved"> {{c.status}} </span>
+                                {% endif %}</a><br>
+
+                            {% endfor %}
+                            {% if 5 > ConsultancyListCount %}
+                            <a href="#" data-requestid = ""  class="learningText" >~ Doctors Fullname &nbsp; Age | Status: Closed </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ This is example of how this box will look </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ When you will have active consultancies </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ To view consultancy click on doctors name! </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Each point in this list is a link to consultancy! </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Consultancies can have different status: Active/Closed/Dispute </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Dispute - is a case when either you or doctor dont agree on an issue </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: green;">~ Green link stands for CLOSED consultancy </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: orange;">~ Orange link stands for ACTIVE consultancy </a><br> 
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: red;">~ Red link stands for DISPUTE consultancy </a><br>                            
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: orange;">~ Click THIS link to see example consultancy!</a><br>                            
+
+                            {% endif %}
+    
+                        </div>
+                        
+                        <div class="RequestBlock">
+                            <h4>Requests</h4>
+                            
+                            {% for r, age in RequestsList%}
+                            
+                            <a href="" data-url = "{% url 'getRequestData' %}" data-requestid = "{{r.id}}" data-bs-toggle="modal" data-bs-target="#viewRequest" class="-" onclick="getRequestData(this)">~ {{r.targetDoctor.user.first_name}}&nbsp;{{r.targetDoctor.user.last_name}}&nbsp;{{age}} | Status: {{RequestsList.count }}
+
+                                {% if r.status == "Agreed" %}
+                                <span class = "requestStatus solved"> {{r.status}} </span>
+                                {% elif r.status == "Pending" %}    
+                                <span class = "requestStatus inProcess" id = "reqStatus"> {{r.status}} </span>
+                                {% elif r.status == "Rejected" %}
+                                <span class = "requestStatus notSolved"> {{r.status}} </span>
+                                {% endif %}</a><br>
+
+                            {% endfor %}
+                            {% if 5 > RequestsListCount %}
+                            <a href="#" data-requestid = ""  class="learningText" >~ Doctors Fullname Age|Status: Closed </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ This is example of how this box will look </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ When you will make several requests </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ To view request click on doctors name! </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Each point in this list is a link to request! </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Request can have different status: Agreed/Rejected </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: green;">~ Green - means doctor accepted your request </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: red;">~ Red - means doctor rejected your request for consultancy! </a><br>       
+                            <a href="#" data-requestid = ""  class="learningText" >~ If doctor accepts request, you will see new consultancy in  </a><br>  
+                            <a href="#" data-requestid = ""  class="learningText" >~ Current Consultancies Block  </a><br>       
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: orange;">~ Click THIS link to see example request!</a><br>                            
+
+                            {% endif %}
+                           
+
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="col-lg-12">
+                        <div class="ConsultancyBlock">
+                            <h4>Past Consultancies</h4>
+                                                       
+                            {% for c, age in ConsultancyListClosed %}
+
+                            {% if c.status == "Closed" %}
+                            <a href="{% url 'getConsultancy' c.id %}"  data-requestid = "{{c.id}}"  class="-" >~ {{c.consultancyDoctor.user.first_name}} {{c.consultancyDoctor.user.last_name}} {{age}}|Status:
+
+                                
+                                <span class = "requestStatus solved"> {{c.status}} </span>
+                                
+                                </a><br>
+                                {% endif %}
+                            {% endfor %}
+                            {% if 5 > ConsultancyListClosedCount %}
+                            <a href="#" data-requestid = ""  class="learningText" >~ Doctors Fullname Age|Status: Closed </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ This is example of how this box will look </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ when you will have ended Consultancies </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ To view consultancy click on doctor name! </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Each point in this list is a link to consultancy! </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Consultancies can have different status: Active/Closed/Dispute </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Dispute - is a case when either you or doctor dont agree on an issue </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: green;">~ Green link stands for CLOSED consultancy </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: orange;">~ Orange link stands for ACTIVE consultancy </a><br> 
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: red;">~ Red link stands for DISPUTE consultancy </a><br>                            <a href="#" data-requestid = ""  class="learningText" >~ Orange link stands for ACTIVE consultancy </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: orange;">~ Click THIS link to see example consultancy!</a><br>                            
+
+                            {% endif %}
+                            
+                        </div>
+                        
+                    </div>
+                       
+                </div>
+
+                
+                
+                
+                
+                
+                
+            </div>
+            <div class="row">
+                
+            </div>
+            <div class="row">
+                <div class="col-lg-4 profileBlockRight">
+                    
+                    
+                    <div class="articleBlock"> 
+                        <span href="#" class="title">  Favourite articles </span>
+                       
+                        {% for a in favouriteArticlesList%}
+                        <a href="{% url 'showFullArticle' a.id %}" class="articleListElement">~ {{a.title}}</a><br>
+                        {% endfor %}
+                        {% if 5 > favouriteArticlesCount %}
+                        <a href="#" data-requestid = ""  class="learningText" >~ Article Title </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ This is example of how this box will look </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ When you will add article to </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ your favourites list! </a><br>
+
+                        {% endif %}
+
+                        
+
+                    </div>
+
+                    <div>
+                        
+                    </div>
+
+                </div>
+                <div class=" col-lg-4 profileBlockRight">
+                    <div class="doctorBlock">  
+                        <span href="#" class="title">  Favourite doctors </span>
+                       
+                        {% for d in favouriteDoctorsList%}
+                        <a href="{% url 'showDocPage' d.user.username %}" class="articleListElement">~ {{d.user.first_name}} &nbsp; {{d.user.last_name}}</a><br>
+                        {% endfor %}
+                        {% if 5 > favouriteDoctorsCount  %}
+                        <a href="#" data-requestid = ""  class="learningText" >~ Doctor fullname </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ This is example of how this box will look </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ When you will add doctor to </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ your favourites list! </a><br>
+
+                        {% endif %}
+                       
+                        
+
+                    </div>
+                </div>
+
+                
+                {% if request.user.username == "Client258" or request.user.username == "khuseyn" %}
+                <div class=" col-lg-2 profileBlockRight" style = "max-height: 600px;">
+                    <div class="doctorBlock" style = "max-height: 600px;"> 
+                        <span href="#" class="title">  Загрузи Файл .xlsx для отправки писем! </span><br>
+                        <form action="{% url 'sendMails' %}" enctype="multipart/form-data" method="POST">
+                            {% csrf_token %}
+                            <input type = "file" name = "uploadedFile" class = "fileInput" accept=".xlsx">
+                            <button type="submit" class="anamnesisBtn"> Submit </button>
+
+                        </form>
+                        
+                        <a href="#" class="articleListElement">~ Лист в таблице должен называться - sheet</a><br>
+                        <a href="#" class="articleListElement">~ В таблице не должно быть пустых ячееке(Зполните хоть буквой)</a><br>
+                        <a href="#" class="articleListElement">~ Пустые строки удаляйте</a><br>
+                        <a href="#" class="articleListElement">~ Username/Password/Email только эти колонки важны</a><br>
+                        <a href="#" class="articleListElement">~ Удаляйте первую строку с названиями столбов</a><br>
+                        
+
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="modal fade" id="viewRequest" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+                <div class="modal-dialog" >
+                  <div class="modal-content" style="margin-left: -20%; width: 700px;">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel">Pending Request No...</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    
+                    
+                    <div class="modal-body">
+                        <div class=" pendingRequestBlock">
+                            <div class="requestTopRow">
+                                <div class="inRequestImg"> <img src="patientIcon.png" id = "requestIMG"> </div>
+                                <div class="patientDetailBlock" id = "profileDetailBlockID">
+                                    <span class="userFName patientName" id = "patientFullName"> Zeynab Kulieva </span> 
+                                    <span class="patientLocation" id = "patientLocation"> Moscow, Russia </span>
+                                    <span class="patientDOB" id = "patientDOB"> 17.04.2001 </span>
+        
+                                    <span class="fa first fa-star checked" style="margin-left: 28%;"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>         
+        
+                            </div>
+                            
+                            
+                            <div class="messagePart"> 
+                                <div class="patientMessage " id = "requestMessage">
+                                    Waiting for message...
+                                </div>
+                                <form action = "{% url 'addRequestFiles' %}" method="POST" enctype="multipart/form-data">
+                                    <label for = "requestFilesInput"></label>
+                                    <input type="file" id = "requestFilesInput" name = "requestFiles" class="fileInput" multiple="multiple" style = "display: inline; margin-bottom: 2%;" accept=".jpg, .jpeg, .png, .pdf">
+                                    {% csrf_token %}
+                                    
+                                    <input type="hidden" id = "hiddenID" name = "requestID" value = "">
+                                    <button type = "submit" class="btnDiagnose">Add Docs</button>
+
+          
+                                  </form>
+        
+                                
+                                
+                            </div>
+                            <div class = "filesBlock" style="position: relative;">
+                                {% for illnesfile in i.illnessfile_set.all %}
+                                <a href="{{illnesfile.fileI.url}}"   class="documents"  download="patient_nameFileName"><embed src="{{illnesfile.fileI.url}}" width="300px" height="200px" /> </a>
+                                <a href = "{% url 'deleteIllnessFile' illnesfile.id %}" class = "label" >Delete</a>
+      
+        
+                                {% endfor %}
+                              </div>
+                              
+                                <span class="requestActionResult" id="actionResult"></span>
+                                
+        
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div> 
+            
+{% endblock belowNavbar%}

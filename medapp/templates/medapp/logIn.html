@@ -1,0 +1,48 @@
+{% extends 'medapp/base.html' %}
+
+{% block belowNavbar%}
+
+<div class="row">
+    <div class="col-lg">
+        <h1>Log In</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3">
+
+    </div>
+    <div class="col-lg-6">
+        <form action="{% url 'logIn' %}" method="POST">
+            
+            {% csrf_token %}       
+
+            <div class="mb-3">
+                <label for="InputUsername" class="form-label"> Username </label>
+                <input type="text" name="usernameInput" class="form-control" id="InputUsername" placeholder="aBagirov" value="">
+                <label class="form-check-label usernameIsUsed" for="input" id="usernameValidation"> {{notLoggedMsg}}  </label>
+            </div>
+        
+            <div class="mb-3">
+              <label for="InputPassword1" class="form-label">Password</label>
+              <input type="password" name="password" class="form-control" id="InputPassword1">
+            </div>
+        
+            <button type="submit" class="btn btn-primary formBtn">Log-In</button>
+        </form>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+
+    
+    
+</div>
+                     
+
+{% endblock belowNavbar%}
+
+ 
+           
+            
+                     
+    

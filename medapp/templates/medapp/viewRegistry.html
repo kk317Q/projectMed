@@ -1,0 +1,133 @@
+{% extends 'medapp/base.html' %}
+
+{% load static %}
+{% block belowNavbar %}
+  
+        
+            
+<div class="row">
+    <div class="col-lg">
+        
+        <span class="registryHeader">{{request.user.first_name}}'s Registry</span>  
+        <br>
+        
+       
+        
+    </div>
+</div>
+<div class = "row">
+
+  <div class = "col-lg-10" style="margin:auto;">
+    <h4>What is registry? Click <img src = "{% static 'images/openMenu.png' %}" class = "showBtn" onclick="showIllnesses(this, 'registryExplanationBox')" style = "height: 30px; width: 30px; margin-top: 1%;"> to open!</h4>
+
+    <div class = "registryExplanationBox" style="display: none;">
+      <h4>Hello,<br>
+
+      This is Registry - place where you can see patient's track of illnesses and treatments!
+      <li>Anytime you have consultancy with that patient, you can view patient's registry!</li>
+      <li>Information about illnesses and treatments can help you to consult patient.</li>
+      <li>It is up to patient, wether to complete it or not! These are optional!</li>
+      <li>Once consultancy with patient ends, you no more will have access to this Registry!</li>
+
+    </h4>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+    
+    <div class="col-lg-1">
+   
+
+    </div>
+    <div class="col-lg-5">
+ 
+        <span class="illnessesHeader"> Illnesses <img src = "{% static 'images/closeMenu.png' %}" class = "showIllnessesBtn" onclick="showIllnesses(this, 'illnessBox')" style = "height: 30px; width: 30px;"> </span>
+        
+        {% for i in Illnesses %}
+        <div class = "illnessBox">
+            <span class="title">{{i.specialization}}, {{i.diagnose}}</span> <br>
+            <span class="date"> {{ i.dateI }}</span>
+            <span class="describtion"> {{i.describtion}} </span>
+            <br>
+            
+                {% if i.active %} 
+                <span class="activeIllness"> Active </span> 
+                {% else %}
+                <span class="solvedIllness"> Solved </span> 
+                {%endif%}
+            </span>
+            <div class = "filesBlock" style="margin-left: 15%;">
+              <div class = "row">
+              {% for illnesfile in i.illnessfile_set.all %}
+
+              <div class = " col-sm-7"  style="margin-bottom: 1%; max-width: 400px; position: relative;">
+                <a href="{{illnesfile.fileI.url}}"   class="documents"  download="{{request.user.first_name}}_file"><embed src="{{illnesfile.fileI.url}}" width="300px" height="200px" /> </a>
+
+                
+              </div>
+
+
+            
+
+
+              {% endfor %}
+              </div>
+            </div>
+          
+            <br>
+     
+            
+           
+
+        </div>
+        
+        {% endfor %}
+
+
+
+    </div>
+    <div class="col-lg-5">
+        <span class="treatmentsHeader"> Treatments <img src = "{% static 'images/closeMenu.png' %}" class = "showIllnessesBtn" onclick="showIllnesses(this, 'treatmentBox')" style = "height: 30px; width: 30px;"> </span>
+    
+       {% for t in Treatments%}
+       
+        <div class = "treatmentBox">
+            <span class="title">{{t.specialization}}, {{t.methodology}}</span> <br>
+            <span class="date"> {{t.dateT}}</span>
+            <span class="describtion"> {{ t.describtion }} </span>
+
+            
+            {% if t.result == "Solved" %}
+            <span class="result solved"> Solved</span>
+            {% elif t.result == "inProcess" %}
+            <span class="result inProcess"> In Process</span>
+            {% elif t.result == "notSolved" %}
+            <span class="result notSolved"> Didn't help</span>
+            {% endif %}
+
+            <br>
+
+
+            
+            <div class = "filesBlock">
+            {% for treatmentfile in t.treatmentfile_set.all %}
+            <a href="{{treatmentfile.fileT.url}}"   class="documents"  download="patient_nameFileName"><embed src="{{treatmentfile.fileT.url}}" width="300px" height="200px" /> </a>
+            <a href = "{% url 'deleteTreatmentFile' treatmentfile.id %}" class = "label" >Delete</a>
+            
+
+            {% endfor %}
+          </div>
+            
+        </div>
+       {% endfor %}
+
+        
+
+    </div>
+
+
+    
+</div>
+{% endblock belowNavbar %}

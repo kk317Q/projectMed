@@ -1,0 +1,225 @@
+{% extends 'medapp/base.html' %}
+
+{% load static %}
+
+{% block homePageTxt%}
+  <div class="col-lg">
+
+    <h3>Here is {{doctor.user.first_name}} card!</h3>
+
+  </div>
+  
+
+{% endblock homePageTxt%}
+
+{% block showDoctors %}
+                              
+          <div class="docCard">
+              <div class="row reviewBoxTop">
+                <div class="col-lg-4 miniCard">
+                  <img src="{{doctor.profileIMG.url}}" style="width: 150px; height: 150px;"> 
+                  {%  if doctor.rating == 5 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span> 
+                          {% elif doctor.rating == 4 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif doctor.rating == 3 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif doctor.rating == 2 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif doctor.rating == 1 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% endif %}
+                    <hr>
+                    {% if isPatient %}
+                        {% if doctor.id in likingList %}
+                        <button class="likeBtn likedBtn" data-url="{% url 'likeDoctor'%}" id = "{{doctor.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% else %}
+                        <button class="likeBtn" data-url="{% url 'likeDoctor'%}" id = "{{doctor.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% endif %}
+
+                        {% if doctor.id in favList %}
+                        <button class="favBtn favedBtn" data-url="{% url 'favouriteDoctor'%}" id = "{{doctor.id}}" onclick="likeFavDoctor(this)"></button>
+
+                        {%else%}
+                        <button class="favBtn" data-url="{% url 'favouriteDoctor'%}" id = "{{doctor.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% endif %}
+                        {% endif %}
+                    {% for s in specializationsDoc%}
+                        <h6 class="specBadge">{{s}}</h6>
+                    {% endfor %}
+
+                    <span class="userLocation" style="text-align:center;">{{doctor.location}}</span>                         
+                    <span class="userLocation" style="text-align:center;">Age: {{age}} Years | {{doctor.malefemale}}</span> 
+                    <span class="userLocation" style="text-align:center;">tel: Shown at consultancy <!--{{doctor.telphone}}--></span> 
+                    <span class="userLocation" style="text-align:center;"> e-mail: Shown at consultancy <!--{{ doctor.user.email}}--></span> 
+                        
+                    
+                    
+                </div>  
+                <div class="col-lg-5 reviewMiddle">
+                    <span class="doc_name" ><h3>{{doctor.user.first_name}} &nbsp; {{doctor.user.last_name}}</h3> &nbsp; Age: {{age}} Years </span> 
+                    <span class="exp"> {{experience}}</span>
+                    <hr>
+
+                    <p class="work_place">                           
+                        Work: &nbsp; {{doctor.work}}
+                    </p>
+                    <p class="education" >Education: &nbsp; {{doctor.education}}</p>
+                    <p class="about_me">About me: {{doctor.aboutMe}}</p><br>
+
+                   
+
+                            
+                </div>
+                <button type="button" class="btnRequest2" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{doctor.id}}">Request consultancy</button>
+      
+
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg">
+
+                {% if 0 < doctor.doctorfile_set.all|length  %}<h4 style = "margin-left: 3%; display: inline;">My files!<img src = "{% static 'images/openMenu.png' %}" class = "showBtn" onclick="showIllnesses(this, 'filesBlock')" style = "height: 30px; width: 30px; border-radius: 0px; display: inline; margin-top: 1%;"> Click to show!</h4> {% endif %}
+                  <div class = "filesBlock" style="margin-left: 2%; display: none; width: 100%; max-height: 220px;">
+                      <div class = "row" style="overflow: auto;  white-space: nowrap;">
+                          {% for f in doctor.doctorfile_set.all %}
+                          <div class = "col-lg-4" style="margin-bottom: 1%; display: inline; position: relative; max-width: 350px;">
+                            <a href="{{f.fileD.url}}"   class="documents"  class = "label" ><embed src="{{f.fileD.url}}" width="300px" height="200px" /></a>
+                             
+
+                          
+                          </div>
+                         
+                          {% endfor %}
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+            
+                  
+                <div class="reviewContainer">
+
+                  {% for review in sendReviewList%}
+
+                  <div class="reviewBox">
+                    <div class="reviewTop">
+                          <div> 
+                            <h5>{{review.authorPatient.user.first_name}} &nbsp; {{review.authorPatient.user.last_name}} </h5> &emsp; ( {{review.dateOfPublish}} ) 
+                          </div>
+                          &nbsp;  • 
+                          {%  if review.stars == 5 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span> 
+                          {% elif review.stars == 4 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif review.stars == 3 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif review.stars == 2 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif review.stars == 1 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% endif %}
+
+                          
+                          • <br> 
+                    </div>   
+                    <div class="reviewText">
+                        &emsp; {{review.reviewText}}<br>
+                    </div>
+                </div>  
+
+                  {% endfor %}
+                  
+
+                 
+
+                  <div class="modal fade" id="staticBackdrop{{doctor.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                          {% if user.is_authenticated %}
+                        <div class="modal-header" id="modal{{doctor.user.username}}">
+                          <h5 class="modal-title" id="staticBackdropLabel">Request to {{doctor.user.first_name}}  {{doctor.user.last_name}}  </h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="" method="POST" id="sendRequest">
+                            {% csrf_token %}
+
+                            <div class="modal-body">
+                              <label>Message to the doctor</label><br>
+
+                                <textarea name="message" class="msgToDoc" type="text" form="sendRequest" id="messageToSend{{doctor.user.username}}" required> </textarea>
+
+
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary"  data-url="{% url 'requestConsultancy' %}" id="{{doctor.user.username}}" onclick="sendRequestToServer(this)">Send</button>
+                            </div>
+
+                        </form>
+
+                        {% else%}
+                        <div class="modal-header" id="modal{{doctor.username}}">
+                            <h5 class="modal-title" id="staticBackdropLabel">Request is not available.  </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                              <div class="modal-body">
+                                  You need to log in for request!
+                                  <a class="nav-link active" href="{% url 'goLogIn' %}" >LogIn</a>
+
+
+              
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a href="{% url 'goLogIn' %}"> <button type="button" class="btn btn-primary" >Log In</button> </a>
+                              </div>
+  
+                        {% endif %}
+                      </div>
+                    </div>
+            </div>  
+
+{% endblock showDoctors %}

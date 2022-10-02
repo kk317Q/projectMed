@@ -1,0 +1,148 @@
+{% extends 'medapp/base.html' %}
+
+{% load static %}
+
+{% block homePageTxt%}
+
+    <div class="col-lg">
+    
+        <h3>Here is search result!</h3>
+
+    </div>
+
+
+
+{% endblock homePageTxt%}
+
+{% block showDoctors %}
+{% for doctor, age, experienceYears, specializationsDoc in sendDoctorList  %}
+                <!--DOCTOR-->          
+                <div class="row docCard">
+                    <div class="col-lg-3 miniCard">
+                       <img src="{{doctor.profileIMG.url}}" style="width: 150px; height: 150px;"> 
+                        {%  if doctor.rating == 5 %}
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span> 
+                          {% elif doctor.rating == 4 %}
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star " style = "font-size: 16pt;"></span> 
+                          {% elif doctor.rating == 3 %}
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star " style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star " style = "font-size: 16pt;"></span> 
+                          {% elif doctor.rating == 2 %}
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star " style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star " style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star " style = "font-size: 16pt;"></span> 
+                          {% elif doctor.rating == 1 %}
+                          <span class="fa fa-star checked" style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star " style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star " style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star " style = "font-size: 16pt;"></span>
+                          <span class="fa fa-star " style = "font-size: 16pt;"></span> 
+                          {% endif %}
+                  
+                        <hr>
+                        {% for s in specializationsDoc%}
+                        <h6 class="specBadge">{{s}}</h6>
+                        {% endfor %}
+                    </div>  
+                    <div class="col-lg-6">
+                        <h3><a href="{% url 'showDocPage' doctor.user.username %}"> {{doctor.user.first_name}} &nbsp; {{doctor.user.last_name}} </a></h3> &nbsp;  
+                        <span class="userLocation" style="text-align:left;">{{doctor.location}}</span>                         
+                        <span class="userLocation" style="text-align:left;">Age: {{age}} Years | {{doctor.malefemale}}</span> 
+                        <span class="exp"> {{experienceYears}}</span>
+                        <hr>
+
+                        <p class="work_place">                     
+                                
+                            Work: &nbsp; {{doctor.work}}
+                        </p>
+                        <p class="education">Education: &nbsp; {{doctor.education}} </p>
+                        <p class="about_me">About me: {{doctor.aboutMe}}</p><br>
+                        {% if isPatient %}
+                        {% if doctor.id in likingList %}
+                        <button class="likeBtn likedBtn" data-url="{% url 'likeDoctor'%}" id = "{{doctor.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% else %}
+                        <button class="likeBtn" data-url="{% url 'likeDoctor'%}" id = "{{doctor.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% endif %}
+
+                        {% if doctor.id in favList %}
+                        <button class="favBtn favedBtn" data-url="{% url 'favouriteDoctor'%}" id = "{{doctor.id}}" onclick="likeFavDoctor(this)"></button>
+
+                        {%else%}
+                        <button class="favBtn" data-url="{% url 'favouriteDoctor'%}" id = "{{doctor.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                    {% if isPatient %}
+                    <button type="button" class="btnRequest" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{doctor.id}}" id = "{{doctor.id}}">Request consultancy</button>
+                    {% endif %}
+                </div>
+               
+                <div class="modal fade" id="staticBackdrop{{doctor.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                          {% if user.is_authenticated %}
+                        <div class="modal-header" id="modal{{doctor.user.username}}">
+                          <h5 class="modal-title" id="staticBackdropLabel">Request to {{doctor.user.first_name}}  {{doctor.user.last_name}}  </h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="" method="POST" id="sendRequest">
+                            {% csrf_token %}
+
+                            <div class="modal-body">
+                              <label>Message to the doctor</label><br>
+
+                                <textarea name="message" class="msgToDoc" type="text" form="sendRequest" id="messageToSend{{doctor.user.username}}" required> </textarea>
+
+
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary"  data-url="{% url 'requestConsultancy' %}" id="{{doctor.user.username}}" onclick="sendRequestToServer(this)">Send</button>
+                            </div>
+
+                        </form>
+
+                        {% else%}
+                        <div class="modal-header" id="modal{{doctor.username}}">
+                            <h5 class="modal-title" id="staticBackdropLabel">Request is not available.  </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                              <div class="modal-body">
+                                  You need to log in for request!
+                                  <a class="nav-link active" href="{% url 'goLogIn' %}" >LogIn</a>
+
+
+              
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a href="{% url 'goLogIn' %}"> <button type="button" class="btn btn-primary" >Log In</button> </a>
+                              </div>
+  
+                        {% endif %}
+                      </div>
+                    </div>
+            </div> 
+            
+                <!--DOCTOR--> 
+
+                <!--//////-->   
+                   
+
+
+{% endfor %}
+{% endblock showDoctors %}

@@ -1,0 +1,88 @@
+{% extends 'medapp/base.html' %}
+
+{% load static %}
+
+{% block belowNavbar %}
+   
+            <div class="row">
+                <div class="col-lg-1">
+
+                </div>
+                <div class="col-lg-10 requestBlock pendingRequestBlock">
+                    <div class="requestTopRow">
+                        <div class="patientDetailBlock">
+                            <span class="articleEditorHeader"> Article Editor </span> 
+                            <span class="author">~ {{fullName}} ~</span>
+                            <span class="patientLocation"> {{Doctor.location}} </span>
+                        <!--Stars Here-->    
+                        <span>
+                            {%  if Doctor.rating == 5 %}
+                          <span class="fa first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span> 
+                          {% elif Doctor.rating == 4 %}
+                          <span class="fa  first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif Doctor.rating == 3 %}
+                          <span class="fa  first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif Doctor.rating == 2 %}
+                          <span class="fa  first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif Doctor.rating == 1 %}
+                          <span class="fa  first fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% endif %}
+                        </span>
+
+                        </div>
+                        
+                        
+                        
+
+                    </div>
+                    
+                    <form action="{% url 'createArticle' %}" method="POST">
+
+                        {% csrf_token %}
+                    <div class="articleForm col-lg-8"> 
+                        <div class="mb-3">
+                            <label for="InputTitle" class="form-label articleEditorLabels">Title for Article</label>
+                            <input type="text" name="article_title" class="form-control titleInput" id="InputTitle" placeholder="The new method of..." required>
+                            
+                            <label for="InputArticleBody" class="form-label articleEditorLabels">Text for Article</label>
+                            <textarea type="text" name="article_body" class="form-control titleInput" id="InputArticleBody" placeholder="Lets start with..." required></textarea>
+                            
+                          <!--  <label for="InputArticleImage" class="form-label articleEditorLabels">Image for Article</label>
+                            <input type="file" name="article_image" class="form-control titleInput" id="InputArticleImage" placeholder="IMG"> -->
+                            <input type = "hidden" name = "authorID" value = "{{Doctor.id}}">
+                          </div>
+                        
+                        
+                        
+                    </div>
+                        
+                        <button type = "submit" class="btnPost">Post</button>
+                        <button type="button" class=" btnReturnBack">Return to Profile</button>
+                    </form>
+
+
+                </div>
+                
+            </div>
+{% endblock belowNavbar %}
+

@@ -1,0 +1,141 @@
+{% extends 'medapp/base.html' %}
+{% load static %}
+{% block belowNavbar%}
+            <div class="row">
+                <div class="col-lg">
+                    <h1>Edit your profile</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="imgBlock"> <img src="{{ Doctor.profileIMG.url }}"> </div>
+                    <a href="{% url 'getProfile'%}"> <button class="navigationBtn">Go to profile</button> </a> 
+                </div>
+                <div class="col-lg-6">
+                    <form action="{% url 'processPhoto' %}" enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+                        <input type = "file" name = "uploadedImg" class = "fileInput" accept=".jpg, .jpeg, .png"> <button type="submit" class="navigationBtn"> Click to save images! </button>
+
+    
+                    </form>     
+                    <div class="mb-3">
+                        
+                        <input type="radio" class = "malefemale" name="malefemale"  id="InputMale" value = "Male">
+                        <label for="InputMale" class="form-label">Male</label>
+
+                        <br>
+                        <input type="radio" class = "malefemale" name="malefemale"  id="InputFemale" value = "Female">
+                        <label for="InputFemale" class="form-label">Female</label>
+                        <button class="saveChange malefemale" data-url="{% url 'editProfileField'%}" id="malefemale"> Save </button>
+
+
+                    </div>                      
+                        <div class="mb-3">
+                            <label for="InputEmail" class="form-label">Email address</label><br>
+                            <input type="email" name="email" class="form-control inputFieldsSmaller" id="InputEmail" aria-describedby="emailHelp" placeholder="bagirov@mail.ru" value = "{{Doctor.user.email}}"><button class="saveChange email" data-url="{% url 'editProfileField'%}" id="email"> Save </button>
+
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                          </div>
+                          <div class="mb-3">
+                            <label for="InputTelphone" class="form-label">Telphone</label><br>
+                            <input type="text" name="telphone" class="form-control inputFieldsSmaller" id="InputTelphone" placeholder="+79151257689" value="{{Doctor.telphone}}">
+                            <button class="saveChange telphone" data-url="{% url 'editProfileField'%}"  id="telphone"> Save </button>
+
+                        </div>
+                          <div class="mb-3">
+                              <label for="InputUsername" class="form-label">Username</label><br>
+                              <input type="text" name="username" class="form-control inputFieldsSmaller" id="InputUsername" placeholder="aBagirov" value = "{{Doctor.user.username}}"><button class="saveChange username" data-url="{% url 'editProfileField'%}"  id="username"> Save </button>
+
+                          </div>
+                          <div class="mb-3">
+                              <label for="InputFirstname" class="form-label">First Name</label><br>
+                              <input type="text" name="first_name" class="form-control inputFieldsSmaller" id="InputFirstname" placeholder="Akshin" value = "{{Doctor.user.first_name}}"><button class="saveChange firstName" data-url="{% url 'editProfileField'%}" id="first_name"> Save </button>
+
+                          </div>
+                          <div class="mb-3">
+                              <label for="InputSecondname" class="form-label">Second Name</label><br>
+                              <input type="text" name="last_name" class="form-control inputFieldsSmaller" id="InputSecondname" placeholder="Bagirov" value = "{{Doctor.user.last_name}}"><button class="saveChange secondName" data-url="{% url 'editProfileField'%}" id="last_name"> Save </button>
+
+  
+                          </div>
+                          <div class="mb-3">
+                              <label for="InputDOB" class="form-label">Date of Birth: {{Patient.dob}}</label><br>
+                              <input type="date" name="dob" class="form-control inputFieldsSmaller" id="InputDOB" placeholder="1967-05-26" value = "{{Doctor.dob}}"><button class="saveChange dob" data-url="{% url 'editProfileField'%}" id="dob"> Save </button>
+
+  
+                          </div>
+                          <div class="mb-3">
+                              <label for="InputCity" class="form-label">City , Country Name</label><br>
+                              <input type="text" name="location" class="form-control inputFieldsSmaller" id="InputCity" placeholder="Moscow, Russia" value = "{{Doctor.location}}"><button class="saveChange city" data-url="{% url 'editProfileField'%}" id="location"> Save </button>
+
+  
+                          </div>
+                        <hr>
+                        <div class="mb-3">
+                            <label for="InputWorkPlace" class="form-label">Work place</label><br>
+                            <input type="text" name="work" class="form-control inputFieldsSmaller" id="InputWorkPlace" placeholder="Bagirov clinics" value = "{{Doctor.work}}">
+                            <button class="saveChange work" data-url="{% url 'editProfileField'%}"  id="work"> Save </button>
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputCountry" class="form-label">Education</label><br>
+                            <input type="text" name="education" class="form-control inputFieldsSmaller" id="InputEducation" placeholder="Sechenov 1-st Med" value="{{Doctor.education}}">
+                            <button class="saveChange education" data-url="{% url 'editProfileField'%}" id="education"> Save </button>
+
+
+                        </div>
+                       
+                        <div class="mb-3">
+                            <label for="InputCountry" class="form-label">When did you start working? ({{Doctor.experience}})</label><br>
+                            <input type="date" name="experience" class="form-control inputFieldsSmaller" id="InputExperience" placeholder="2020-04-15" value="{{Doctor.experience}}"><button class="saveChange experience" data-url="{% url 'editProfileField'%}" id="experience"> Save </button>
+
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputPasswordOld" class="form-label">Old Password</label><br>
+                            <input type="password" name="passwordChange" class="form-control inputFieldsSmaller" id="InputPasswordOld">
+  
+                          </div>
+                        <div class="mb-3">
+                          <label for="InputPassword1" class="form-label">Password</label><br>
+                          <input type="password" name="passwordChange" class="form-control inputFieldsSmaller" id="InputPassword" onchange="checkPasswords()">
+                          <label class="form-check-label" for="InputPassword" id="passwordValidation"></label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputConfirmPassword" class="form-label">Confirm Password</label><br>
+                            <input type="password" name="passwordConfirmChange" class="form-control inputFieldsSmaller" id="InputConfirmPassword" onchange="checkPasswords()">
+                            <button class="passwordConfirmBtn" data-url="{% url 'changePassword'%}" id="passwordConfirmChange" onclick="changePassword()" > Save </button>
+
+                        </div>
+
+                          <div class="dropdown selectSpecBtn">
+                            <a class="btn btn-success dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                              Select you specialization
+                            </a><br>
+                        
+                        <ul class="dropdown-menu specializationsToSelect" aria-labelledby="dropdownMenuLink">
+ 
+                          {%for s, e in specializationList%}
+                          {%if e == 1 %}
+                          <li class="specializationOption"><input class="form-check-input specializationOption" type="checkbox" id="InputAccountType" value="{{s}}" checked> {{s}}</li>
+                          {% else %}
+                          <li class="specializationOption"><input class="form-check-input specializationOption" type="checkbox" id="InputAccountType" value="{{s}}"> {{s}}</li>
+                          {% endif %}  
+                          {% endfor %}
+
+
+                            </ul>
+                        </div><button class="saveChange specialization2" data-url="{% url 'editProfileField'%}" id="specialization"> Save </button>
+
+
+
+                        
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+
+                
+                
+            </div>
+         
+{% endblock belowNavbar%}

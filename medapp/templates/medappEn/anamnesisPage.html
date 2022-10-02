@@ -1,0 +1,128 @@
+{% extends 'medapp/base.html' %}
+
+{% block belowNavbar %}
+                <div class="row">
+                <div class="col-lg">
+                    <h1> {{user.first_name}}'s anamnesis</h1>
+                </div>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+                <div class="col-lg-8 anamnesisDetails">
+                    <br>
+
+                        <h4>Hello, 
+                            <br>
+                            <li> Here you can fill fields of your Anamnesis!  </li>
+                            <li> These are optional, you may leave them uncomplete.</li>
+                            <li> This is for your doctor to view in case of consultancy.  </li>
+                            <li> It will be available to doctor while you have active consultancy with that doctor!</li>
+
+                        </h4> 
+                        <br>
+                   
+                        <div class="mb-3">
+                          <label for="InputPlaceOfBirth" class="form-label">Place of Birth</label><br>
+                          <input type="text" name="placeOfBirth" class="form-control inputAnamnesis inputFieldsSmaller" id="InputPlaceOfBirth"  placeholder="Where were you born?" value="{{anamnesis.placeOfBirth}}">
+                          <button class="saveChange placeOfBirth" data-url = "{% url 'editAnamnesis' %}" id="placeOfBirth" > Save </button>
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputParentsAge" class="form-label">Parents Age at birth</label><br>
+                            <input type="text" name="parentsAgeAtBirth" class="form-control inputAnamnesis inputFieldsSmaller" id="InputParentsAge" placeholder="At what age were your parents when you were born?" value="{{anamnesis.parentsAgeAtBirth}}" >
+                            <button class="saveChange userParentsAgename" data-url = "{% url 'editAnamnesis' %}" id="parentsAgeAtBirth"> Save </button>
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputDescriptionOfBirth" class="form-label">Description Of Birth</label><br>
+                            <input type="text" name="descriptionOfBirth" class="form-control inputAnamnesis inputFieldsSmaller" id="InputDescriptionOfBirth" placeholder="Here we expect describtion of your birth..." value="{{anamnesis.descriptionOfBirth}}">
+                            <button class="saveChange descriptionOfBirth" data-url = "{% url 'editAnamnesis' %}" id="descriptionOfBirth"> Save </button>
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputAboutEAT" class="form-label">About EAT</label><br>
+                            <input type="text" name="aboutEAT" class="form-control inputAnamnesis inputFieldsSmaller" id="InputAboutEAT" placeholder="Do you usually eat home made food or prefer eating outside?" value="{{anamnesis.aboutEAT}}">
+                            <button class="saveChange aboutEAT" data-url = "{% url 'editAnamnesis' %}" id="aboutEAT"> Save </button>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputPremorbidState" class="form-label">Premorbid State</label><br>
+                            <input type="text" name="premorbidState" class="form-control inputAnamnesis inputFieldsSmaller" id="InputPremorbidState" placeholder="You pre-illness conditions!" value="{{anamnesis.premorbidState}}">
+                            <button class="saveChange premorbidState" data-url = "{% url 'editAnamnesis' %}" id="premorbidState"> Save </button>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputPeculiaritiesInDevelopment" class="form-label">Peculiarities In Development</label><br>
+                            <input type="text" name="peculiaritiesInDevelopment" class="form-control inputAnamnesis inputFieldsSmaller" id="InputPeculiaritiesInDevelopment" placeholder="Did you have any peculiarities in development?" value="{{anamnesis.peculiaritiesInDevelopment}}">
+                            <button class="saveChange peculiaritiesInDevelopment" data-url = "{% url 'editAnamnesis' %}" id="peculiaritiesInDevelopment"> Save </button>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputLifeConditions" class="form-label">Life Conditions</label><br>
+                            <input type="text" name="lifeConditions" class="form-control inputAnamnesis inputFieldsSmaller" id="InputLifeConditions" placeholder="What are your life conditions, describe these..." value="{{anamnesis.lifeConditions}}">
+                            <button class="saveChange lifeConditions" data-url = "{% url 'editAnamnesis' %}" id="lifeConditions"> Save </button>
+
+                        </div>
+                        <hr>
+                        <div class="mb-3">
+                            <label for="InputJobDescription" class="form-label">Job Description</label><br>
+                            <input type="text" name="jobDescription" class="form-control inputAnamnesis inputFieldsSmaller" id="InputJobDescription" placeholder="Describe your regular job, do you sit most of your time, etc" value="{{anamnesis.jobDescription}}">
+                            <button class="saveChange jobDescription" data-url = "{% url 'editAnamnesis' %}" id="jobDescription"> Save </button>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputBadHabits" class="form-label">Bad Habits</label><br>
+                            <input type="text" name="badHabits" class="form-control inputAnamnesis inputFieldsSmaller" id="InputBadHabits" placeholder="What bad habits do you have?" value="{{anamnesis.badHabits}}">
+                            <button class="saveChange badHabits" data-url = "{% url 'editAnamnesis' %}" id="badHabits"> Save </button>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputLifeStyle" class="form-label">Life Style</label><br>
+                            <input type="text" name="lifeStyle" class="form-control inputAnamnesis inputFieldsSmaller" id="InputLifeStyle" placeholder = "How would you describe your life style? Do sprot regularly, go to work and home only, etc!" value="{{anamnesis.lifeStyle}}">
+                            <button class="saveChange lifeStyle" data-url = "{% url 'editAnamnesis' %}" id="lifeStyle"> Save </button>
+  
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputDietDescription" class="form-label">Diet Description</label><br>
+                            <input type="text" name="dietDescription" class="form-control inputAnamnesis inputFieldsSmaller" id="InputDietDescription"  placeholder = "Do you have any diets? If yes describe these..." value="{{anamnesis.dietDescription}}">
+                            <button class="saveChange dietDescription" data-url = "{% url 'editAnamnesis' %}" id="dietDescription"> Save </button>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputPastIllnesses" class="form-label">Past Illnesses</label><br>
+                            <input type="text" name="pastIllnesses" class="form-control inputAnamnesis inputFieldsSmaller" id="InputPastIllnesses" placeholder="Any past illnesses? These can also be added in Registry!" value="{{anamnesis.pastIllnesses}}">
+                            <button class="saveChange pastIllnesses" data-url = "{% url 'editAnamnesis' %}" id="pastIllnesses"> Save </button>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputSurgicalInterventions" class="form-label">Surgical Interventions</label><br>
+                            <input type="text" name="surgicalInterventions" class="form-control inputAnamnesis inputFieldsSmaller" id="InputSurgicalInterventions" placeholder="Did you have any surgeries in past? Describe these..." value="{{anamnesis.surgicalInterventions}}">
+                            <button class="saveChange surgicalInterventions" data-url = "{% url 'editAnamnesis' %}" id="surgicalInterventions"> Save </button>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputHereditaryDiseases" class="form-label">Hereditary Diseases</label><br>
+                            <input type="text" name="hereditaryDiseases" class="form-control inputAnamnesis inputFieldsSmaller" id="InputHereditaryDiseases" placeholder="No problems" value="{{anamnesis.hereditaryDiseases}}">
+                            <button class="saveChange hereditaryDiseases" data-url = "{% url 'editAnamnesis' %}" id="hereditaryDiseases"> Save </button>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputPastInfections" class="form-label">Past Infections</label><br>
+                            <input type="text" name="pastInfections" class="form-control inputAnamnesis inputFieldsSmaller" id="InputPastInfections" placeholder="Did you have any past infections?" value="{{anamnesis.pastInfections}}">
+                            <button class="saveChange pastInfections" data-url = "{% url 'editAnamnesis' %}" id="pastInfections"> Save </button>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputAllergicHistory" class="form-label">Allergic History</label><br>
+                            <input type="text" name="allergicHistory" class="form-control inputAnamnesis inputFieldsSmaller" id="InputAllergicHistory" placeholder="Do you have allergy on anything?" value="{{anamnesis.allergicHistory}}">
+                            <button class="saveChange allergicHistory" data-url = "{% url 'editAnamnesis' %}" id="allergicHistory"> Save </button>
+
+                        </div>
+
+                        
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+         
+{% endblock belowNavbar %}
+
+           

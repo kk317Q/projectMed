@@ -1,0 +1,81 @@
+{% extends 'medapp/base.html' %}
+
+{% load static %}
+
+{% block belowNavbar %}
+    
+            <div class="row">
+                <div class="col-lg">
+                    <h1>Will you approve article?</h1>
+                </div>
+            </div>
+        
+            
+            <br>
+            <div class="row">
+                <div class="col-lg-10 profileArticleBlock fullArticle">
+
+                        <span class="article_title" >{{Article.title}}</span> 
+                        <span class="publishDate"> &nbsp;- ( {{Article.datePosted}} ) -   </span>
+                        <p class="author"> ~ {{authorsFullName}} ~</p>
+                        <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        <span class="approvedByNum"> {{Article.numOfApprovals}} Approvals </span>
+
+                        {% if approved %}
+                        <span class="approvedArticleStatus"> Approoved </span>
+                        {% else %}
+                        <span class="unapprovedArticleStatus"> Not approved </span>
+                        {% endif %}
+
+                        {% if Article.id in likingArticleList %}
+                        <button class="likeBtn likedBtn" data-url="{% url 'likeArticle'%}" id = "{{Article.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% else %}
+                        <button class="likeBtn" data-url="{% url 'likeArticle'%}" id = "{{Article.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% endif %}
+
+                        {% if Article.id in favArticleList %}
+                        <button class="favBtn favedBtn" data-url="{% url 'favouriteArticle'%}" id = "{{Article.id}}" onclick="likeFavDoctor(this)"></button>
+
+                        {%else%}
+                        <button class="favBtn" data-url="{% url 'favouriteArticle'%}" id = "{{Article.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% endif %}
+                        <hr>
+
+                        <p class="articleBody">                     
+                            {{Article.body|linebreaksbr}}
+                        </p>
+                        
+                        {% if approvedByCurrentDoctor %}
+                        
+                        <button type="button" class="btnApprove" style = "background-color: #62686b; border-color: #62686b;"  data-url = "{% url 'approveArticle' %}" data-action = "Unapprove" data-articleID = "{{Article.id}}" onclick="sendApproval(this)">Unapprove Article</button><br>
+                        {% else %}
+                        <button type="button" class="btnApprove"  data-url = "{% url 'approveArticle' %}" data-action = "Approve" data-articleID = "{{Article.id}}" onclick="sendApproval(this)">Approve Article</button><br>
+                        {% endif %}
+
+                        {% if disapprovedByCurrentDoctor %}
+                        <button type="button" class="btnDisapprove" style = "background-color: #62686b; border-color: #62686b;"  data-url = "{% url 'approveArticle' %}" data-action = "Undisapprove" data-articleID = "{{Article.id}}" onclick="sendApproval(this)">Undisapprove Article</button>
+                        {% else %}
+                        <button type="button" class="btnDisapprove"  data-url = "{% url 'approveArticle' %}" data-action = "Disapprove" data-articleID = "{{Article.id}}" onclick="sendApproval(this)">Disapprove Article</button>
+                        {% endif %}
+
+                        <button type="button" class="btnFullArticle">Read Article</button>
+                        <a href = "{% url 'getProfile' %}"><button type="button" class="btnEditArticle">Return to Profile</button></a> 
+
+
+                </div>
+                
+            </div>
+        </div>
+
+
+                
+                
+            </div>
+         
+            
+       
+{% endblock belowNavbar %}

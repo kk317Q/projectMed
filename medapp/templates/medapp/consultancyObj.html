@@ -1,0 +1,356 @@
+{% extends 'medapp/base.html'%}
+
+{% load static %}
+
+{% block belowNavbar %}
+          
+                <div class="col-10 requestBlock" style="border-width: 0px;">
+                    <div class="row">
+                        <div class="requestTopRow col-lg-12">
+                            {% if isDoctor %}
+                            <img src="{{consultancy.consultancyPatient.profileIMG.url}}" style =" width: 200px; height: 200px; margin: auto; margin-right: 1%; "> 
+                            {% else %}
+                            <img src="{{consultancy.consultancyDoctor.profileIMG.url}}" style =" width: 200px; height: 200px; margin: auto; margin-right: 1%; "> 
+                            {% endif %}
+                            <div class="patientDetailBlock">
+                                {% if isDoctor %}
+                                <span class="userFName patientName"> {{consultancy.consultancyPatient.user.first_name}} &nbsp; {{consultancy.consultancyPatient.user.last_name}}  </span> 
+                                <span class="patientLocation"> {{consultancy.consultancyPatient.location}} </span>
+                                <span class="patientDOB"> {{consultancy.consultancyPatient.dob}} </span>
+                                <span class="patientLocation"> Consultancy No: {{consultancyNo}} </span>
+    
+                            {%  if consultancy.consultancyPatient.rating == 5 %}
+                          <span class="fa first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span> 
+                          {% elif consultancy.consultancyPatient.rating == 4 %}
+                          <span class="fa first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif consultancy.consultancyPatient.rating == 3 %}
+                          <span class="fa first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif consultancy.consultancyPatient.rating == 2 %}
+                          <span class="fa first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif consultancy.consultancyPatient.rating == 1 %}
+                          <span class="fa first fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% endif %}
+                                
+                                {% else %}
+                                <a href = "{% url 'showDocPage' consultancy.consultancyDoctor.user.username %}"  > <span class="userFName patientName" style="margin:auto;">Dr. {{consultancy.consultancyDoctor.user.first_name}} &nbsp; {{consultancy.consultancyDoctor.user.last_name}}  </span>  </a> 
+                                {%  if consultancy.consultancyDoctor.rating == 5 %}
+                                <span class="fa first fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span> 
+                                {% elif consultancy.consultancyDoctor.rating == 4 %}
+                                <span class="fa first fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star "></span> 
+                                {% elif consultancy.consultancyDoctor.rating == 3 %}
+                                <span class="fa first fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star "></span> 
+                                {% elif consultancy.consultancyDoctor.rating == 2 %}
+                                <span class="fa first fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star "></span> 
+                                {% elif consultancy.consultancyDoctor.rating == 1 %}
+                                <span class="fa first fa-star checked"></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star "></span> 
+                                {% endif %}
+                                <span class="patientLocation"> {{consultancy.consultancyDoctor.location}} </span>
+                                <span class="patientDOB"> {{consultancy.consultancyDoctor.dob}} </span>
+                            
+                                <span class="patientLocation"> Tel: {{consultancy.consultancyDoctor.telphone}} </span>
+                                <span class="patientLocation">  E-mail: {{consultancy.consultancyDoctor.user.email}} </span>
+
+
+        
+                             
+                                
+                                {%endif%}
+
+                            </div>
+                            <div class="rightTopCorner">
+                                {%if consultancy.status == "Active" or  consultancy.status == "Dispute" %}
+                                {% if isDoctor %}
+                                <a href="{% url 'anamnesisToDoctor' consultancy.consultancyPatient.id %}" class="patientAnamnesis">Anamnesis &nbsp;</a>
+                                <a href="{% url 'registryToDoctor' consultancy.consultancyPatient.id %}" class="patientRegistry">Registry</a>
+                                
+                                {% else %}
+                                <a href="{% url 'anamnesis'%}" class="patientAnamnesis">Anamnesis &nbsp;</a>
+                                <a href="{% url 'getRegistry'%}" class="patientRegistry">Registry</a>
+
+                               
+                                {% endif %}
+                                {% endif %}
+                                <a href="" class="patientLocation" style="font-size: 12pt; text-align: left;">Consultancy started: {{consultancy.consultancyStartDate}} &nbsp;</a>
+                                <a href="" class="patientLocation" style="font-size: 12pt; text-align: left;">Consultancy ended: {{consultancy.consultancyEndDate}}</a>
+                            </div>
+                            
+                            <div class = "row" style="max-width: 98%;">
+                            <div class="messagePart col-lg-5"> 
+                               
+                                {%if isDoctor %}
+                                    <span class="patientMessage header">
+                                        Patients Message
+                                    </span>
+                                    <div class="patientMessage">{{consultancy.patientMessage}}</div>
+
+                                    <span class="doctorComments header">
+                                        Doctors Comments 
+                
+                                        {% if consultancyClosed == False %}
+                                        <button type="button" class="smallBtn forComment" id="saveBtnComment" data-url = "{% url 'editConsultancyField' %}" data-textNeededID = "doctorCommentsText" data-consultancyID = "{{consultancy.id}}" data-fieldToSave = "doctorComments" onclick = "consultancyInput(this)" >Save</button>           
+                                        {% endif %}
+                                    </span> 
+                                    <textarea class="doctorComments" id = "doctorCommentsText">{{consultancy.doctorComments}}</textarea>
+
+                                    <span class="doctorConclusion header">
+                                        Doctors Conclusion 
+                                        {% if consultancyClosed == False %}
+                                        <button type="button" class="smallBtn" id="saveBtnConclusion" data-url = "{% url 'editConsultancyField' %}"  data-textNeededID = "doctorConclusionText" data-consultancyID = "{{consultancy.id}}" data-fieldToSave = "doctorConclusion" onclick = "consultancyInput(this)" >Save</button>
+                                        {% endif %}
+
+                                    </span>
+                                    <textarea class="doctorConclusion" id = "doctorConclusionText" contenteditable="true">{{consultancy.doctorConclusion}}</textarea>
+
+                                    
+                                {% else %}
+                                    <span class="patientMessage header">
+                                        Patients Message                             
+                                         {% if consultancyClosed == False %}
+                                        <button type="button" class="smallBtn" id="saveBtnMsg" data-url = "{% url 'editConsultancyField' %}" data-textNeededID = "patientMessageText" data-consultancyID = "{{consultancy.id}}"  data-fieldToSave = "patientMessage" onclick = "consultancyInput(this)" >Save</button>
+                                        {% endif %}
+                                    </span>
+                                    <textarea class="patientMessage" id = "patientMessageText">{{consultancy.patientMessage|linebreaksbr}}</textarea>
+
+                                    <span class="doctorComments header">
+                                        Doctors Comments           
+                                    </span> 
+                                    <div class="doctorComments">{{consultancy.doctorComments|linebreaksbr}}</div>
+                                   
+                                    <span class="doctorConclusion header">
+                                        Doctors Conclusion
+                                    </span>
+                                    <div class="doctorConclusion" >{{consultancy.doctorConclusion|linebreaksbr}}</div>
+                                 {% endif %}
+                                
+                            </div>
+
+                            <div class="messagePart col-lg-6" style="max-width: 500px; border: 8px solid #178796; border-radius: 10px; margin-left: 5%;"> 
+                                <h4 style="margin:auto; "> Chat </h4>  <span class="patientLocation"> Consultancy No: {{consultancyNo}} </span>
+
+                                <input type="hidden" id = "checkMessage" data-url ="{% url 'checkChatMessages'%}" data-chatID="{{chat.id}}" data-chatcount="{{chat.chatmessage_set.all|length}}" data-username = "{{user.username}}">
+                                <br>
+                                 <div id = "chatBox" scrollTop = 200 class = "chatBody" style="max-height: 350px; height: 350px; margin: auto; margin-bottom: 5%; overflow-y:auto; position: relative;" >
+                                    
+                                    {% for msg in chat.chatmessage_set.all %}
+
+                                    {% if msg.author.user.username == user.username %}
+                                    
+
+                                        <div class = "chatElement2">
+                                        
+                                            <span class = "chatMessageText" > {{msg.messageText}} </span>
+                                            <br>
+        
+                                            <span class = "chatMessageDate">{{msg.datePosted}}</span>
+        
+                                         </div>
+        
+                                    <br>
+                                     
+                                    {%else%}
+        
+                                    
+        
+                                     <div class = "chatElement">
+                                         
+                                         <span class = "chatMessageText">{{msg.messageText}} </span>
+                                         <br>
+                                         <span class = "chatMessageDate">{{msg.datePosted}}</span>
+        
+                                     </div>
+                                    <br>
+                                    
+                                
+
+                                    {% endif %}
+                                      {% endfor %}
+ 
+                                 </div>
+                               
+                                 <input type="text" class = "inputForChat " id = "chatMessageInput" onkeyup = "checkEnterBtn(event)" style="display: inline-block; vertical-align: bottom;"> <button type="button" class="smallBtn" id = "sendMessageInput" data-chatID="{{chat.id}}" data-url = "{% url 'createChatMessage' %}" style="position: relative; left:25%; margin-right:5%; display: inline-block; vertical-align: bottom;" onclick="sendMessageChat(this)">Send</button>
+                 
+                             </div>
+                            
+                           
+                            
+                            </div>
+                            <hr>
+                            <!--HHHH-->
+            
+
+                            <div class="row">
+                                <div class="col-lg">
+                                    <h4 class="">Consultancy files!</h4>
+                                    <div class = "filesBlock" style="margin-left: 4%;">
+                                        <div class = "row">
+                                            {% for consultancyfile in consultancy.consultancyfile_set.all %}
+                                            <div class = " col-sm-7"  style="margin-bottom: 1%; max-width: 400px; position: relative;">
+                                                <a href="{{consultancyfile.fileC.url}}"   class="documents"  download="{{consultancyfile.id}}_{{consultancyfile.name}}"><embed src="{{consultancyfile.fileC.url}}" width="350px" height="250px" /> </a>
+                                                <a href="{{consultancyfile.fileC.url}}"   class="documents"  download="{{consultancyfile.id}}_{{consultancyfile.name}}" class = "label" ><button type="button" class="smallBtn" style="position: absolute; top: 3%; right: 10%;">Download</button></a>
+                                                {% if consultancyfile.author == request.user %}
+                                                <a href = "{%  url 'deleteConsultancyFile' consultancyfile.id  %}" class = "label" ><button type="button" class="smallBtn" style="position: absolute; top: 17%; right: 10%;">Delete</button></a>
+                                                {% endif %}
+                                            </div>
+                                           
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                
+                                </div>
+                            </div>
+
+
+
+                            {% if consultancyClosed %}
+                            <label  id = "statusOfClose" style="display: inline-block; margin-left: 3%; margin-bottom: 2%;" > {{awaitMSG}}</label><br>
+                            <a href = "{% url 'getProfile' %}"> <button type="button" class="btnReturnBack">Return to Profile</button> </a>    <br>
+
+                            {% else %}
+                            <label  id = "statusOfClose" style="display: inline-block; margin-left: 3%; margin-bottom: 2%;" > {{awaitMSG}}</label><br>
+
+                            <a href = "{% url 'getProfile' %}"> <button type="button" class="btnReturnBack">Return to Profile</button> </a>   <br>
+                            <button type="button" class="btnApprove" data-bs-toggle="modal" data-bs-target="#endConsultancy" >End Consultancy</button>
+                            <button type="button" class="btnDisapprove">Dispute</button>
+                            
+                            <form action = "{% url 'addConsultancyFiles' %}" method="POST" enctype="multipart/form-data" style="margin-left: 1.5%;">
+                                <label for = "consultancyFilesInput"></label>
+                                <input type="file" id = "consultancyFilesInput" name = "consultancyFiles" class="fileInput" multiple="multiple" style = "display: inline; margin-bottom: 2%;" accept=".jpg, .jpeg, .png, .pdf">
+                                {% csrf_token %}
+                                <input type="hidden" id = "hiddenID" name = "consultancyID" value = "{{consultancy.id}}">
+                                <button type = "submit" class="btnDiagnose">Add Docs</button>
+                                
+
+      
+                              </form>
+                            {% endif %}
+    
+    
+    
+                        </div>
+                         
+                        
+                        
+
+                        <div class="modal fade " id="endConsultancy" tabindex="-1">
+                            <div class="modal-dialog">
+                                {% if isDoctor %}
+
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Please give a review about patient...</h5>
+
+
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class = "ratingBlock" id = "ratingBlock" style = "width: 30%;">
+                                        <label for = "reviewAboutPatient">Rate patient: </label><br>
+                                        <span class="fa fa-star " id = "star1" data-ratingValue = "1" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                                        <span class="fa fa-star " id = "star2" data-ratingValue = "2" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                                        <span class="fa fa-star " id = "star3" data-ratingValue = "3" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                                        <span class="fa fa-star" id = "star4" data-ratingValue = "4" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                                        <span class="fa fa-star" id = "star5" data-ratingValue = "5" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span> 
+                                    </div>
+
+                                    <input type="hidden" id = "ratingValueToPass" name = "ratingToPatient" value = "">
+                                   
+                                    <br> 
+                                
+                                  <label for = "reviewAboutPatient"> Was patient problematic? : </label>
+                                  <textarea type = "text" name = "reviewAboutPatient" id = "reviewAboutPatient" class = "inputForReview" placeholder="Patient didnt provocate any dispute..."></textarea>
+
+         
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary" data-url="{% url 'closeConsultancy' %}" data-consultancyID="{{consultancy.id}}" onclick = "endConsultancy(this)">End consultancy</button>
+                                </div>
+                              </div>
+                              {% else %}
+
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Please give a review about doctor...</h5>
+
+
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class = "ratingBlock" id = "ratingBlock" style = "width: 30%;">
+                                        <label for = "reviewAboutPatient">Rate doctor: </label>
+                                        <br>
+                                        <span class="fa fa-star " id = "star1" data-ratingValue = "1" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                                        <span class="fa fa-star " id = "star2" data-ratingValue = "2" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                                        <span class="fa fa-star " id = "star3" data-ratingValue = "3" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                                        <span class="fa fa-star" id = "star4" data-ratingValue = "4" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span>
+                                        <span class="fa fa-star" id = "star5" data-ratingValue = "5" onclick="colorStarsFinal(this)" onmouseover="colorStars(this)" onmouseout="colorStarsOpposite(this)" data-clicked = "false" style = "font-size: 16pt;"></span> 
+                                    </div>
+
+                                    <input type="hidden" id = "ratingValueToPass" name = "ratingToPatient" value = "">
+                                   
+                                    <br> 
+                                
+                                  <label for = "reviewAboutPatient"> Give a review about doctor: </label>
+                                  <textarea type = "text" name = "reviewAboutPatient" id = "reviewAboutPatient" class = "inputForReview" placeholder="Doctor was very helpful, answered my questions..."></textarea>
+
+         
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary" data-url="{% url 'closeConsultancy' %}" data-consultancyID="{{consultancy.id}}" onclick = "endConsultancy(this)">End consultancy</button>
+                                </div>
+                              </div>
+                              {% endif %}
+
+                            </div>
+                          </div>
+                   
+                        
+                    </div>
+
+                </div>
+               
+                   
+                     
+                
+{% endblock belowNavbar%}      

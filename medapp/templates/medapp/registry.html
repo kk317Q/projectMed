@@ -1,0 +1,488 @@
+{% extends 'medapp/base.html' %}
+
+{% load static %}
+{% block belowNavbar %}
+  
+        
+            <div class="row">
+                <div class="col-lg">
+                    
+                    <span class="registryHeader">{{request.user.first_name}}'s Registry</span>  <button class="addIllnessBtn" data-bs-toggle="modal" data-bs-target="#addIllnessWindow"> Add Illness</button>
+                    <button class="addTreatmentBtn" data-bs-toggle="modal" data-bs-target="#addTreatmentWindow"> Add Treatment</button>
+                    <br>
+                    
+                   
+                    
+                </div>
+            </div>
+            <div class = "row">
+
+              <div class = "col-lg-10" style="margin:auto;">
+                <h4>What is registry? Click <img src = "{% static 'images/openMenu.png' %}" class = "showBtn" onclick="showIllnesses(this, 'registryExplanationBox')" style = "height: 30px; width: 30px; margin-top: 1%;"> to open!</h4>
+
+                <div class = "registryExplanationBox" style="display: none;">
+                  <h4>Hello,<br>
+  
+                  This is Registry - place where you can keep track of illnesses and treatments!
+                  <li>Anytime you have consultancy with your doctor, doctor can view your registry!</li>
+                  <li>Information about illnesses and treatments can help doctor to consult you.</li>
+                  <li>It is up to you, wether to create or not! These are optional!</li>
+                  <li>Once consultancy with doctor ends, doctor no more will have access to your Registry!</li>
+  
+                </h4>
+                </div>
+              </div>
+            
+            </div>
+
+            <div class="row">
+                
+                <div class="col-lg-1">
+               
+
+                </div>
+                <div class="col-lg-5">
+             
+                    <span class="illnessesHeader"> Illnesses <img src = "{% static 'images/closeMenu.png' %}" class = "showIllnessesBtn" onclick="showIllnesses(this, 'illnessBox')" style = "height: 30px; width: 30px;"> </span>
+                    
+                    {% for i in Illnesses %}
+                    <div class = "illnessBox">
+                        <span class="title">{{i.specialization}}, {{i.diagnose}}</span> <br>
+                        <span class="date"> {{ i.dateI }}</span>
+                        <span class="describtion"> {{i.describtion}} </span>
+                        <br>
+                        
+                            {% if i.active %} 
+                            <span class="activeIllness"> Active </span> 
+                            {% else %}
+                            <span class="solvedIllness"> Solved </span> 
+                            {%endif%}
+                        </span>
+                        <div class = "filesBlock" style="margin-left: 15%;">
+                          <div class = "row">
+                          {% for illnesfile in i.illnessfile_set.all %}
+
+                          <div class = " col-sm-7"  style="margin-bottom: 1%; max-width: 400px; position: relative;">
+                            <a href="{{illnesfile.fileI.url}}"   class="documents"  download="{{request.user.first_name}}_file"><embed src="{{illnesfile.fileI.url}}" width="300px" height="200px" /> </a>
+                            <a href = "{% url 'deleteIllnessFile' illnesfile.id %}" class = "label" ><button type="button" class="smallBtn" style="position: absolute; top: 5%; right: 0%;">Delete</button></a>
+
+                          </div>
+
+
+                        
+
+  
+                          {% endfor %}
+                          </div>
+                        </div>
+                      
+                        <br>
+                        <button class="editIllnessBtn" data-bs-toggle="modal" data-bs-target="#editIllnessWindow" data-url="{% url 'getIllnessData' %}" id = "{{i.id}}" onclick="getIllnessData(this)" > Edit Illness</button>
+                        <a href = "{% url 'deleteIllness' i.id %}" class = "label" ><button class="editIllnessBtn" data-bs-toggle="modal" data-bs-target="" data-url="{% url 'getIllnessData' %}" id = "{{i.id}}" > Delete Illness</button>
+                        </a>
+                        
+                        <form action = "{% url 'addIllnessFiles' %}" method="POST" enctype="multipart/form-data">
+                          <label for = "illnessFilesInput"></label>
+                          <input type="file" id = "illnessFilesInput" name = "illnessFiles" class="fileInput" multiple="multiple" style = "display: inline;" accept=".jpg,.jpeg, .png, .pdf"><button type = "submit" class="editIllnessBtn" data-url="{% url 'getIllnessData' %}" id = "{{i.id}}" style="display: inline; margin-bottom: 2%;"> Add files </button>
+                          {% csrf_token %}
+                          <input type="hidden" name = "illnessID" value = "{{i.id}}">
+
+
+                        </form>
+
+                    </div>
+                    
+                    {% endfor %}
+
+
+
+                </div>
+                <div class="col-lg-5">
+                    <span class="treatmentsHeader"> Treatments <img src = "{% static 'images/closeMenu.png' %}" class = "showIllnessesBtn" onclick="showIllnesses(this, 'treatmentBox')" style = "height: 30px; width: 30px;"> </span>
+                
+                   {% for t in Treatments%}
+                   
+                    <div class = "treatmentBox">
+                        <span class="title">{{t.specialization}}, {{t.methodology}}</span> <br>
+                        <span class="date"> {{t.dateT}}</span>
+                        <span class="describtion"> {{ t.describtion }} </span>
+
+                        
+                        {% if t.result == "Solved" %}
+                        <span class="result solved"> Solved</span>
+                        {% elif t.result == "inProcess" %}
+                        <span class="result inProcess"> In Process</span>
+                        {% elif t.result == "notSolved" %}
+                        <span class="result notSolved"> Didn't help</span>
+                        {% endif %}
+
+                        <br>
+
+
+                        
+                        <div class = "filesBlock">
+                        {% for treatmentfile in t.treatmentfile_set.all %}
+                        <div class = " col-sm-7"  style="margin-bottom: 1%; max-width: 400px; position: relative;">
+
+                        <a href="{{treatmentfile.fileT.url}}"   class="documents"  download="patient_nameFileName"><embed src="{{treatmentfile.fileT.url}}" width="300px" height="200px" /> </a>
+                        <a href = "{% url 'deleteTreatmentFile' treatmentfile.id %}" class = "label" ><button type="button" class="smallBtn" style="position: absolute; top: 5%; right: 0%;">Delete</button></a>
+                        </div>
+
+                        {% endfor %}
+                      </div>
+                        <button class="editTreatmentBtn" data-bs-toggle="modal" data-bs-target="#editTreatmentWindow" data-url="{% url 'getTreatmentData' %}" id = "{{t.id}}" onclick="getTreatmentData(this)"> Edit Treatment</button>
+                        <a href = "{% url 'deleteTreatment' t.id %}" class = "label" ><button class="editIllnessBtn" data-bs-toggle="modal" data-bs-target="" data-url="{% url 'getIllnessData' %}" id = "{{i.id}}"  > Delete Treatment</button>
+
+
+                        <form action = "{% url 'addTreatmentFiles' %}" method="POST" enctype="multipart/form-data">
+                          <label for = "treatmentFilesInput"></label>
+                          <input type="file" id = "treatmentFilesInput" name = "treatmentFiles" class="fileInput" multiple="multiple" style = "display: inline;" accept=".jpg,.jpeg, .png, .pdf"><button type = "submit" class="editIllnessBtn" data-url="{% url 'getIllnessData' %}" id = "{{i.id}}" style="display: inline; margin-bottom: 2%;"> Add files </button>
+                          {% csrf_token %}
+                          <input type="hidden" name = "treatmentID" value = "{{t.id}}">
+
+
+                        </form>
+                    </div>
+                   {% endfor %}
+
+                    
+
+                </div>
+
+
+                
+            </div>
+            <div class="row">
+            
+                <!--Add Illness-->
+                <div class="modal fade" id="addIllnessWindow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabel">Add Illness</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{% url 'createNewIllness' %}" method="POST" enctype="multipart/form-data">
+                        
+                        
+                        <div class="modal-body">
+
+
+                               
+                                {% csrf_token %}
+
+
+                                <div class="dropdown selectSpecBtn">
+                                    <a class="btn btn-success dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                      Select specialization of Illness
+                                    </a>
+                                    
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                      <li class="specializationOption"><input class="form-check-input InputAccountType" type="radio" name="specialization" id="InputAccountTypeID" value="Allergist"> Allergist</li>
+                                      <li class="specializationOption"><input class="form-check-input InputAccountType" type="radio" name="specialization" id="InputAccountTypeID" value="Endocrinologist"> Endocrinologist</li>
+                                      <li class="specializationOption"><input class="form-check-input InputAccountType" type="radio" name="specialization" id="InputAccountTypeID" value="Therapist"> Therapist</li>
+                                      <li class="specializationOption"><input class="form-check-input InputAccountType" type="radio" name="specialization" id="InputAccountTypeID" value="Cardiologist"> Cardiologist</li>
+                                      <li class="specializationOption"><input class="form-check-input InputAccountType" type="radio" name="specialization" id="InputAccountTypeID" value="Neurologist"> Neurologist</li>
+                                      <li class="specializationOption"><input class="form-check-input InputAccountType" type="radio" name="specialization" id="InputAccountTypeID" value="Oncologist"> Oncologist</li>
+                                      <li class="specializationOption"><input class="form-check-input InputAccountType" type="radio" name="specialization" id="InputAccountTypeID" value="Immunologist"> Immunologist</li>
+                                      <li class="specializationOption"><input class="form-check-input InputAccountType" type="radio" name="specialization" id="InputAccountTypeID" value="Ophtalmologist"> Ophtalmologist</li>
+                                      <li class="specializationOption"><input class="form-check-input InputAccountType" type="radio" name="specialization" id="InputAccountTypeID" value="Dietologist"> Dietologist</li>
+                                      <li class="specializationOption"><input class="form-check-input InputAccountType" type="radio" name="specialization" id="InputAccountTypeID" value="ENT"> ENT</li>
+                                      <li class="specializationOption"><input class="form-check-input InputAccountType" type="radio" name="specialization" id="InputAccountTypeID" value="Surgeon"> Surgeon</li>
+
+        
+        
+        
+        
+                                    </ul>
+                                </div>
+                                  
+                                <div class="mb-3">
+                                  <label for="InputDiagnose" class="form-label">Diagnose</label>
+                                  <input type="text" name="diagnose" class="form-control" id="InputDiagnose" aria-describedby="emailHelp" placeholder="flu">
+                                  <div id="emailHelp" class="form-text">We'll never share your data without your permision.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="InputDescribtion" class="form-label">Describtion</label>
+                                    <input type="text" name="describtion" class="form-control" id="InputDescribtion" aria-describedby="emailHelp" placeholder="I had a cough">
+                                  </div>
+
+                                <div class="mb-3">
+                                    <label for="InputDateOfIllness" class="form-label">When was illness noticed first?</label>
+                                    <input type="date" name="dateOfIllness" class="form-control" id="InputDateOfIllness" required>
+                                </div>
+
+                                
+                          
+                                <input type="radio" class="btn-check" name="illnessState" id="illnessStateActive" autocomplete="off" value = "active" checked>
+                                <label class="btn btn-danger" for="illnessStateActive">Active</label>
+    
+                                <input type="radio" class="btn-check" name="illnessState" id="illnessStateSolved" autocomplete="off" value = "solved">
+                                <label class="btn btn-success" for="illnessStateSolved">Solved</label>
+    
+
+
+                        </div>
+
+                        <div class="modal-footer">
+                          <input type="file" id = "illnessFilesInput" name = "illnessFiles" class="fileInput" multiple="multiple" style = "display: inline;" accept=".jpg,.jpeg, .png, .pdf">
+
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary"  id="sendRequestBtn" onclick="">Send</button>
+                        </div>
+                    </form>
+
+                      </div>
+                    </div>
+                </div> 
+
+                <!--Add Treatment-->
+                <div class="modal fade" id="addTreatmentWindow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabel">Add Treatment</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <form action="{% url 'createNewTreatment' %}" method="POST" enctype="multipart/form-data">
+
+                                {% csrf_token %}
+
+
+                                <div class="dropdown selectSpecBtn selectSpecBtnforIllness">
+                                    <a class="btn btn-success dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                      Select specialization of Treatment
+                                    </a>
+                                  
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Allergist" > Allergist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Endocrinologist" > Endocrinologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Therapist"> Therapist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Cardiologist"> Cardiologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Neurologist"> Neurologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Oncologist"> Oncologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Immunologist"> Immunologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Ophtalmologist"> Ophtalmologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Dietologist"> Dietologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="ENT"> ENT</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Surgeon" > Surgeon</li>
+
+        
+                                    </ul>
+                                </div>
+                                  
+                                <div class="mb-3">
+                                  <label for="InputMethodology" class="form-label">Methodology</label>
+                                  <input type="text" name="methodology" class="form-control" id="InputMethodology" aria-describedby="downNote" placeholder="New calex technology">
+                                  <div id="downNote" class="form-text">We'll never share your data without your permision.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="InputDescribtion" class="form-label">Describtion</label>
+                                    <input type="text" name="describtion" class="form-control" id="InputDescribtion" aria-describedby="downNote" placeholder="Surgery put in my leg...">
+                                  </div>
+
+                                <div class="mb-3">
+                                    <label for="InputDateOfTreatment" class="form-label">When the treatment took place?</label>
+                                    <input type="date" name="dateOfTreatment" class="form-control" id="InputDateOfTreatment" required>
+                                </div>
+
+                                
+                                <input type="radio" class="btn-check" name="treatmentResult" id="treatmentResultSolved" autocomplete="off" value = "Solved">
+                                <label class="btn btn-success" for="treatmentResultSolved">Solved</label>
+
+                                <input type="radio" class="btn-check" name="treatmentResult" id="treatmentResultInProcess" autocomplete="off" value = "inProcess">
+                                <label class="btn btn-warning" for="treatmentResultInProcess">In process</label>
+
+                                <input type="radio" class="btn-check" name="treatmentResult" id="treatmentResultNotSolved" autocomplete="off" value = "notSolved" checked>
+                                <label class="btn btn-danger" for="treatmentResultNotSolved">Didn't work</label>
+
+
+
+
+                        </div>
+
+                        <div class="modal-footer">
+                          <input type="file" name = "treatmentFiles" class="fileInput" multiple="multiple" accept=".jpg,.jpeg, .png, .pdf">
+
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Send</button>
+                        </div>
+                    </form>
+
+                      </div>
+                    </div>
+                </div>  
+
+                <!--Edit Treatment-->
+                <div class="modal fade" id="editTreatmentWindow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabel">Edit Treatment</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+
+                        <form action="{% url 'editTreatment' %}" method="POST">
+
+                        <div class="modal-body">
+
+
+                               
+                                {% csrf_token %}
+
+
+                                <div class="dropdown selectSpecBtn selectSpecBtnforIllness">
+                                    <a class="btn btn-success dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                      Select specialization of Treatment
+                                    </a>
+                                  
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Allergist" > Allergist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Endocrinologist" > Endocrinologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Therapist"> Therapist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Cardiologist" > Cardiologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Neurologist"> Neurologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Oncologist"> Oncologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Immunologist"> Immunologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Ophtalmologist"> Ophtalmologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Dietologist"> Dietologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="ENT"> ENT</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Surgeon" > Surgeon</li>
+
+        
+                                    </ul>
+                                </div>
+                                  
+                                <div class="mb-3">
+                                  <label for="InputMethodology" class="form-label">Methodology</label>
+                                  <input type="text" name="methodology" class="form-control" id="InputMethodology" aria-describedby="downNote" placeholder="The last user value">
+                                  <div id="downNote" class="form-text">We'll never share your data without your permision.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="InputDescribtion" class="form-label">Describtion</label>
+                                    <input type="text" name="describtion" class="form-control" id="InputDescribtion" aria-describedby="downNote" placeholder="The last user value in describtion">
+                                  </div>
+
+                                <div class="mb-3">
+                                    <label for="InputDateOfTreatment" class="form-label">When the treatment took place?</label>
+                                    <input type="date" name="dateOfTreatment" class="form-control" id="InputDateOfTreatment" required>
+                                </div>
+
+                                
+                                <input type="radio" class="btn-check" name="treatmentResult" id="treatmentResultSolvedE" autocomplete="off" value="Solved">
+                                <label class="btn btn-success" for="treatmentResultSolvedE">Solved</label>
+
+                                <input type="radio" class="btn-check" name="treatmentResult" id="treatmentResultInProcessE" autocomplete="off" value = "inProcess" checked>
+                                <label class="btn btn-warning" for="treatmentResultInProcessE">In process</label>
+
+                                <input type="radio" class="btn-check" name="treatmentResult" id="treatmentResultNotSolvedE" autocomplete="off" value = "notSolved">
+                                <label class="btn btn-danger" for="treatmentResultNotSolvedE">Didn't work</label>
+
+                                <input type="hidden" id = "InputTreatmentID" name = "treatmentID" value = "">
+
+
+
+                        </div>
+
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Send</button>
+                        </div>
+                    </form>
+
+
+                      </div>
+                    </div>
+                </div>
+
+
+                <!--Edit Illness-->
+                <div class="modal fade" id="editIllnessWindow" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabel">Edit Illness</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <form action="{% url 'editIllness' %}" method="POST">
+
+                        <div class="modal-body">
+
+
+                               
+                                {% csrf_token %}
+
+
+                                <div class="dropdown selectSpecBtn selectSpecBtnforIllness">
+                                    <a class="btn btn-success dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                      Select specialization of Illness
+                                    </a>
+                                  
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Allergist" > Allergist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Endocrinologist" > Endocrinologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Therapist"> Therapist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Cardiologist" > Cardiologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Neurologist"> Neurologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Oncologist"> Oncologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Immunologist"> Immunologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Ophtalmologist"> Ophtalmologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Dietologist"> Dietologist</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="ENT"> ENT</li>
+                                      <li class="specializationOption"><input class="form-check-input" type="radio" id="InputAccountType" name = "specialization" value="Surgeon" > Surgeon</li>
+
+        
+                                    </ul>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="InputDiagnose" class="form-label">Diagnose</label>
+                                    <input type="text" name="diagnose" class="form-control" id="InputDiagnose" aria-describedby="emailHelp" placeholder="flu user value">
+                                    <div id="emailHelp" class="form-text">We'll never share your data without your permision.</div>
+                                  </div>
+  
+                                  <div class="mb-3">
+                                      <label for="InputDescribtion" class="form-label">Describtion</label>
+                                      <input type="text" name="describtion" class="form-control" id="InputDescribtion" aria-describedby="emailHelp" placeholder="I had a cough user value">
+                                    </div>
+  
+                                  <div class="mb-3">
+                                      <label for="InputDateOfIllness" class="form-label">When was illnes noticed first?</label>
+                                      <input type="date" name="dateOfIllness" class="form-control" id="InputDateOfIllness" required>
+                                  </div>
+  
+                                                         
+                                  <input type="radio" class="btn-check" name="illnessState" id="illnessStateActiveE" autocomplete="off"  value = "active">
+                                  <label class="btn btn-danger" for="illnessStateActiveE">Active</label>
+
+                                  <input type="radio" class="btn-check" name="illnessState" id="illnessStateSolvedE" autocomplete="off" value = "solved" checked>
+                                  <label class="btn btn-success" for="illnessStateSolvedE">Solved</label>
+
+
+                                  <input type="hidden" id = "InputIllnessID" name = "illnessID" value = "">
+
+
+
+                        </div>
+
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" data-url="" class="btn btn-primary">Send</button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+
+                
+
+
+            </div>
+{% endblock belowNavbar %}

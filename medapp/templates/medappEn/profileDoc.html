@@ -1,0 +1,365 @@
+{% extends 'medapp/base.html'%}
+
+{% load static %}
+
+{% block belowNavbar %}
+
+            <div class="row">
+                <div class="col-lg">
+                    <h1>Hello, Doctor {{user.first_name}}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5 profileBlock1">
+                    
+                    <div class="imgBlock"> <img src="{{Doctor.profileIMG.url}}"> </div>
+                    <div class="profileMainData"> 
+
+                    
+                        <span class="userFName">  {{user.first_name}} &nbsp; {{user.last_name}}  </span>
+
+                        <span class="userCitation">~ {{Doctor.username}} ~</span><br>
+                        <span class="expInProfile">{{Experience}} years</span>
+                        <span class="userDOB"> {{Doctor.dob}} </span> 
+                        <span class="userLocation"> {{Doctor.location}} </span>
+                        
+                        <span>
+                        {%  if Doctor.rating == 5 %}
+                          <span class="fa first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span> 
+                          {% elif Doctor.rating == 4 %}
+                          <span class="fa  first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif Doctor.rating == 3 %}
+                          <span class="fa  first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif Doctor.rating == 2 %}
+                          <span class="fa  first fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif Doctor.rating == 1 %}
+                          <span class="fa  first fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% endif %}
+                          </span>
+                    </div>
+                    <span class="education">~ {{Doctor.education}} </span>
+                    <span class="work_place">~ {{Doctor.work}} </span>
+                    
+                    <a href="{% url 'editProfileDoctor'%}" > <button type="button" class="editProfileBtn" style="margin-top: 1%;">Edit Profile</button> </a>
+                    <a href ="{% url 'writeArticle' %}"><button class=" editProfileBtn" style = ""> Write Article</button></a> 
+                    
+                    <form action = "{% url 'addDoctorsFiles' %}" method="POST" enctype="multipart/form-data">
+                        <input type="file" id = "doctorFilesInput" name = "doctorFiles" class="fileInput " multiple="multiple" style = "display: inline; margin-bottom: 2%; margin-left: 3%;" accept=".jpg,.jpeg, .png, .pdf">
+                        {% csrf_token %}
+                        <button type = "submit" class="btnDiagnose tooltipInput">Add Docs<label for = "doctorFilesInput" class = "label tooltipLabel">Add files you want to post!</label>
+                        </button>
+
+
+                      </form>
+
+
+                </div>
+
+                <div class="col-lg-4 profileBlockRight BtnGroup">
+
+                <div class="col-lg-12">
+                    <div class="ConsultancyBlock CurrentConsultancy currentConsultancyBlock">
+                        <h4>Current Consultancies</h4>
+                        {% for c, age in ConsultancyList%}
+
+
+                                {% if c.status == "Active" or c.status == "Awaiting Close" %} 
+                                <a href="{% url 'getConsultancy' c.id %}"  data-requestid = "{{c.id}}"  class="-" >~ {{c.consultancyPatient.user.first_name}} &nbsp; {{c.consultancyPatient.user.last_name}} &nbsp; {{age}} | Status:   
+                                <span class = "requestStatus inProcess" id = "reqStatus"> {{c.status}} </span><br>
+                                {% elif c.status == "Dispute" %}
+                                <a href="{% url 'getConsultancy' c.id %}"  data-requestid = "{{c.id}}"  class="-" >~ {{c.consultancyPatient.user.first_name}} &nbsp; {{c.consultancyPatient.user.last_name}} &nbsp; {{age}} | Status:
+                                <span class = "requestStatus notSolved"> {{c.status}} </span><br>
+                                {% endif %}</a>
+
+                        {% endfor %}
+                        {% if 5 > ConsultancyListCount %}
+                            <a href="#" data-requestid = ""  class="learningText" >~ Patients Fullname &nbsp; Age | Status: Closed </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ This is example of how this box will look </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ When you will have active consultancies </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ To view consultancy click on patients name! </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Each point in this list is a link to consultancy! </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Consultancies can have different status: Active/Closed/Dispute </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Dispute - is a case when either you or patient dont agree on an issue </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: green;">~ Green link stands for CLOSED consultancy </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: orange;">~ Orange link stands for ACTIVE consultancy </a><br> 
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: red;">~ Red link stands for DISPUTE consultancy </a><br>                            
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: orange;">~ Click THIS link to see example consultancy!</a><br>                            
+
+                            {% endif %}
+                        
+
+                    </div>
+                    
+                    <div class="RequestBlock">
+                        <h4>Requests</h4>
+                        {% for r, age in RequestsList%}
+
+                            <a href="#" data-url = "{% url 'getRequestData' %}" data-requestid = "{{r.id}}" data-bs-toggle="modal" data-bs-target="#viewRequest" class="-" onclick="getRequestData(this)">~ {{r.requestPatient.user.first_name}} &nbsp; {{r.requestPatient.user.last_name}} &nbsp; {{age}} | Status:
+
+                                {% if r.status == "Agreed" %}
+                                <span class = "requestStatus solved"> {{r.status}} </span>
+                                {% elif r.status == "Pending" %}    
+                                <span class = "requestStatus inProcess" id = "reqStatus"> {{r.status}} </span>
+                                {% elif r.status == "Rejected" %}
+                                <span class = "requestStatus notSolved"> {{r.status}} </span>
+                                {% endif %}</a><br>
+
+                        {% endfor %}
+                        {% if 5 > RequestsListCount %}
+                            <a href="#" data-requestid = ""  class="learningText" >~ Patient Fullname Age|Status: Closed </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ This is example of how this box will look </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ When you will make several requests </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ To view request click on Patient name! </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Each point in this list is a link to request! </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Request can have different status: Agreed/Rejected </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: green;">~ Green - means Patient accepted your request </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: red;">~ Red - means doctor rejected your request for consultancy! </a><br>       
+                            <a href="#" data-requestid = ""  class="learningText" >~ If you accepts request, you will see new consultancy in  </a><br>  
+                            <a href="#" data-requestid = ""  class="learningText" >~ Current Consultancies Block  </a><br>       
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: orange;">~ Click THIS link to see example request!</a><br>                            
+
+                            {% endif %}
+                        
+                    </div>
+                   <!-- <div class="achievements">
+                        <img src="{% static 'images/doctorIcon.png' %} " style="width: 40px; height: 40px;"></img>
+                        <img src="{% static 'images/doctorIcon.png' %} " style="width: 40px; height: 40px;"></img>
+                        <img src="{% static 'images/doctorIcon.png' %} " style="width: 40px; height: 40px;"></img>
+
+                    </div>-->
+                    
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="ConsultancyBlock">
+                        <h4>Past Consultancies</h4>
+                        {% for c, age in ConsultancyListClosed%}
+                            {% if c.status == "Closed" %}
+                        <a href="{% url 'getConsultancy' c.id %}"  data-requestid = "{{c.id}}"  class="-" >~ {{c.consultancyPatient.user.first_name}} &nbsp; {{c.consultancyPatient.user.last_name}} &nbsp; {{age}} | Status:
+                        <span class = "requestStatus solved"> {{c.status}} </span> <br>
+
+                       
+                            {% endif %}
+                        {% endfor %}
+                        {% if 5 > ConsultancyListClosedCount %}
+                            <a href="#" data-requestid = ""  class="learningText" >~ Patients Fullname Age|Status: Closed </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ This is example of how this box will look </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ when you will have ended Consultancies </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ To view consultancy click on patient name! </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Each point in this list is a link to consultancy! </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" >~ Consultancies can have different status: Active/Closed/Dispute </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: green;">~ Green link stands for CLOSED consultancy </a><br>
+                            <a href="#" data-requestid = ""  class="learningText" style = "color: green;">~ Click THIS link to see example consultancy!</a><br>                            
+
+                            {% endif %}
+
+                        
+                    </div>
+                    <div class="articleBlock"> 
+    
+    
+                    </div>
+                </div>
+                </div>
+        
+                
+            </div>
+            <div class="row">
+                <div class="col-lg-3 profileBlockRight">
+                    
+                    
+                    <div class="articleBlock"> 
+                        <span href="#" class="title">  Favourite articles </span>
+                        {% for a in favouriteArticlesList%}
+                        <a href="{% url 'showFullArticle' a.id %}" class="articleListElement">~ {{a.title}}</a><br>
+                        {% endfor %}
+                        {% if 5 > favouriteArticlesList|length %}
+                        <a href="#" data-requestid = ""  class="learningText" >~ Article Title </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ This is example of how this box will look </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ When you will add article to </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ your favourites list! </a><br>
+
+                        {% endif %}
+
+                       
+
+                    </div>
+
+                    
+                </div>
+                <div class="col-lg-3 profileBlockRight">
+                    
+                    
+                    <div class="articleBlock"> 
+                        <span href="#" class="title">  My articles </span>
+
+                        {% for a in myArticleList %}
+                        <a href="{% url 'goToEditArticle' a.id %}"  class="articleListElement">~ {{a.title}}</a><br>
+                        {% endfor %}
+                        {% if 5 > myArticleListCount %}
+                        <a href="#" data-requestid = ""  class="learningText" >~ Article Title </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ Here you will have all  </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ Your articles published </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ Click article title to get into edit page!! </a><br>
+
+                        {% endif %}
+
+                        
+                   
+                    </div>
+
+                    
+                </div>
+                <div class="col-lg-3 profileBlockRight">
+                    
+                    
+                    <div class="articleBlock"> 
+                        <span href="#" class="title">  Articles for approvals </span>
+
+                        {% for a, approved, disapproved in articlesForApprove %}
+                        {% if approved %}
+                        <a href="{% url 'viewArticleToApprove' a.id %}" style = "color: green;" class="articleListElement">~ {{a.title}} | Approvals: {{a.numOfApprovals}}</a><br>
+                        {%elif disapproved%}
+                        <a href="{% url 'viewArticleToApprove' a.id %}" style = "color: red;" class="articleListElement">~ {{a.title}} | Approvals: {{a.numOfApprovals}}</a><br>
+                        {% else %}
+                        <a href="{% url 'viewArticleToApprove' a.id %}" class="articleListElement">~ {{a.title}} | Approvals: {{a.numOfApprovals}}</a><br>
+                        {% endif %}
+                        {% endfor %}
+                        {% if 5 > articlesForApproveCount %}
+                        <a href="#" data-requestid = ""  class="learningText" >~ Article Title </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ Here you will have list of all articles  </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ That dont have enough approvals to be </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ Published </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ You can approve/disapprove/ignore articles </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ For any actions click on current link  </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ After your action you'll be able to   </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ Make further change to your decision   </a><br>
+                        <a href="#" data-requestid = ""  class="learningText" >~ Your action is recorded in system   </a><br>
+
+
+
+
+
+
+                        {% endif %}
+
+
+                        
+                   
+                    </div>
+
+                    
+                </div>
+                
+            </div>
+            <hr>
+
+            <div class="row">
+                <div class="modal fade" id="viewRequest" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+                    <div class="modal-dialog" >
+                      <div class="modal-content" style="margin-left: -20%; width: 700px;">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabel">Pending Request No...</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        
+                        
+                        <div class="modal-body">
+                            <div class=" pendingRequestBlock">
+                                <div class="requestTopRow">
+                                    <div class="inRequestImg"> <img id = "requestIMG" src="patientIcon.png"> </div>
+                                    <div class="patientDetailBlock" id = "profileDetailBlockID">
+                                        <span class="userFName patientName" id = "patientFullName"> Zeynab Kulieva </span> 
+                                        <span class="patientLocation" id = "patientLocation"> Moscow, Russia </span>
+                                        <span class="patientDOB" id = "patientDOB"> 17.04.2001 </span>
+                                        
+                                        <span class="fa first fa-star checked" style="margin-left: 28%;"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                    
+                                    
+                                    
+            
+                                </div>
+                                
+                                
+                                <div class="messagePart"> 
+                                    <div class="patientMessage " id = "requestMessage">
+                                        Waiting for message...
+                                    </div>
+                                    
+                                    
+                                </div>
+                                <input type = "hidden" id = "hiddenID">
+                                    <span class="requestActionResult" id="actionResult"></span>
+                                    <button type="button" class="btnApprove" id = "btnApprove" data-url = "{% url 'actionOnRequest' %}" data-requestid=" " onclick = "respondRequest(this, 'Agree')" >Agree</button>
+                                    <button type="button" class="btnDisapprove"  id = "btnDisapprove" data-url = "{% url 'actionOnRequest' %}" data-requestid=" " onclick = "respondRequest(this, 'Reject')">Reject</button>
+                                    <!--<button type="button" class="btnReaddress"  id = "btnReaddress" data-url = "{% url 'actionOnRequest' %}" data-requestid=" " onclick = "respondRequest(this, 'Readdres')">Readdres</button>-->
+                                    <a href = "{% url 'getProfile' %}" > <button type="button" class=" btnReturnBack" style="margin-bottom: 0px;">Return to Profile</button> </a>
+
+                                        <div class = "filesBlock" style="position: relative;">
+                                            {% for illnesfile in i.illnessfile_set.all %}
+                                            <a href="{{illnesfile.fileI.url}}"   class="documents"  download="patient_nameFileName"><embed src="{{illnesfile.fileI.url}}" width="300px" height="200px" /> </a>
+                                            <a href = "{% url 'deleteIllnessFile' illnesfile.id %}" class = "label" >Delete</a>
+                  
+                    
+                                            {% endfor %}
+                                          </div>
+            
+            
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                </div> 
+
+            </div>
+            
+            <div class="row">
+                <div class="col-lg">
+                    <h4 style = "margin-left: 3%; display: inline;">My files! &nbsp; <img src = "{% static 'images/closeMenu.png' %}" class = "hideBtn" onclick="showIllnesses(this, 'filesBlock')" style = "height: 30px; width: 30px; border-radius: 0%; display: inline; margin-top: 2%;"> &nbsp; Click to show!</h4> 
+                    <div class = "filesBlock" style="margin-left: 4%;">
+                        <div class = "row">
+                            {% for f in Doctor.doctorfile_set.all %}
+                            <div class = " col-sm-7"  style="margin-bottom: 1%; max-width: 400px; position: relative;">
+                                <a href="{{f.fileD.url}}"   class="documents"  download="{{Doctor.user.username}}_{{f.name}}"><embed src="{{f.fileD.url}}" width="350px" height="250px" /> </a>
+                                <a href="{{f.fileD.url}}"   class="documents"  download="{{Doctor.user.username}}_{{f.name}}" class = "label" ><button type="button" class="smallBtn" style="position: absolute; top: 3%; right: 10%;">Download</button></a>
+                                <a href = "{% url 'deleteDoctorFile' f.id %}" class = "label" ><button type="button" class="smallBtn" style="position: absolute; top: 17%; right: 10%;">Delete</button></a>
+                            </div>
+                           
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+
+        
+            
+
+            
+{% endblock belowNavbar%}

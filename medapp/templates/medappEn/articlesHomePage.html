@@ -1,0 +1,53 @@
+{% extends 'medapp/base.html' %}
+
+{% load static %}
+
+{% block belowNavbar %}
+
+            <div class="row">
+                <div class="col-lg">
+                    <h1>Search articles at MedAPP</h1>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="">
+                    
+                        <form action="{% url 'searchArticles'%}" class="searchbar searchbarArticle  mx-auto" method="GET">
+                          
+                           
+
+                            <input  type="text" name="articleTitleforSearch" style="width: 75%;" placeholder="Article title" >
+                            <button type="click" >Search</button>
+                                  
+                        </form>
+                </div>
+            </div>
+            {% block articlesBelowSearchBar %}
+            <div class="row">
+                <div class="col-lg introTXT">
+                    <!-- <img src="doctorIcon.png" class="rounded float-left" alt="DOC"> --> 
+                    <span class="for"><br>MedApp Articles</span>
+                    <li>is a place where you can find many articles written and checked by independent doctors working with our platform.</li>
+                    
+                </div>
+                
+                <div class="col-lg introTXT">
+                   <!-- <img src="patientIcon.png" class="rounded float-right" alt="PAT"> --> 
+                    <span class="for"><br>Here people can:</span>
+                    <li>Share experience among doctors</li>
+                    <li>Learn about new methods</li>
+                    <li>Discuss new practics</li>
+                    <li>And do a lot more</li>
+                </div>
+            </div>
+            {% endblock articlesBelowSearchBar %}
+
+            <br>
+           
+        </div>
+
+
+                
+                
+            </div>
+{% endblock belowNavbar %}

@@ -1,0 +1,1714 @@
+.nav-link, .navbar-brand{
+    color: white;
+    font-size: 16pt;
+    font-weight: 500;
+    height: 120%;
+
+}
+
+.nav-link:hover, .searchbar button:hover {
+    color: #6d9ecd;
+    background-color: white;
+    transition-duration: 400ms;
+}
+
+.nav-link:active{
+    color: #067eed;
+    background-color: white;
+}
+
+.openMenuIcon{
+    height: 30px;
+    width: 30px;
+}
+
+.searchbar{
+    margin-top: 5%;
+    position: relative;
+}
+
+
+.searchbar input{
+    width: 100%;
+    height: 1.5cm;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16pt;
+    color: gray;
+    border-radius: 5px;
+    border: 2px solid #067eed;
+    display: inline-block;
+    margin-bottom: 1%;
+
+
+}
+.searchbar button{
+    height: 1.5cm;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 13pt;
+    color: #ffffff;
+    border-radius: 10px;
+    border: 2px solid #067eed;
+    background-color: #067eed;
+    width: 100%;
+    min-width: 10px;
+    
+}
+
+.introTXT{
+    color: #0e3854;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15pt;
+    margin-top: 5%;
+}
+
+.introTXT .for{
+    font-weight: 900;
+}
+
+h1{
+    text-align: center;
+    margin-top: 5%;
+}
+
+h3{
+    text-align: left;
+    margin-top: 5%;
+}
+
+img{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 2%;
+}
+
+.parentDocCard{
+
+    width: 100%;
+    min-width: 550px;
+    max-width: 1300px;
+    margin:auto;
+    margin-bottom: 2%;
+    height: auto;
+    float: left;
+    overflow: auto;
+    padding: 1%;
+    position: relative;
+    
+   
+}
+
+
+.docCard{
+    width: 100%;
+    min-width: 500px;
+    max-width: 1200px;
+    border: 10px solid #0e3854;
+    border-radius: 50px;
+    margin:auto;
+    margin-bottom: 2%;
+    height: auto;
+    float: left;
+    overflow: auto;
+    padding: 1%;
+    position: relative;
+    
+   
+}
+
+
+
+.docCard img{
+    width: 130px;
+    height: 130px;
+    display: block;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.miniCard{
+    margin-right: 1%;
+    padding: 2%;
+    padding-bottom: 0px;
+    float: left;
+    overflow-x: scroll;
+    white-space: nowrap;
+    text-align: center;
+    border-right: 2px solid #0e3854;
+    height: 100%;
+
+}
+.docCard .doc_name{
+    
+   color: #0e3854;
+    
+}
+
+.work_place{
+    font-size: 14pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #0e3854;
+    display: inline-block;
+} 
+
+.education{
+    font-size: 14pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #0e3854;
+
+}
+
+.about_me{
+    font-size: 14pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #0e3854;
+}
+
+.exp{
+    border-radius: 15px;
+    border: 2px solid #36cab2;
+    background-color: #36cab2;
+    color: #ffffff;
+    font-size: 14pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    padding: 0.5%;
+}
+
+.specBadge{
+    border: 2px solid #ff7c1f;
+    border-radius: 10px;
+    font-size: 12pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    margin-top: 1%;
+    margin-left: 10%;
+    width: 80%;
+    display: block;
+
+
+}
+
+.btnRequest{
+    background-color: #2fac3f;
+    border: 2px solid #2fac3f;
+    border-radius: 10px;
+    margin: auto;
+    color: #ffffff;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    vertical-align: bottom;
+    width: 300px;
+    
+    
+}
+
+.btnRequest:hover, .btnRequest2:hover {
+    background-color: #36cab2;
+    border: 2px solid #36cab2;
+    transition-duration: 400ms;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btnRequest2{
+    background-color: #2fac3f;
+    border: 2px solid #2fac3f;
+    border-radius: 10px;
+    margin: auto;
+    color: #ffffff;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    vertical-align: bottom;
+    width: 300px;
+}
+
+
+.checked {
+    color: orange;
+}
+
+.work_place img{
+    width: 30px;
+    height: 30px;
+    margin-right: 1%;
+}
+
+.reviewContainer{
+    padding: 10px;
+    margin-top: 1%;
+    margin-left: 1%;
+    
+}
+
+.learningText{
+    color: gray;
+}
+
+.reviewTop h5, .reviewResponseTop h5{
+    color: #0e3854;
+    display: inline-block;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+    font-family: cursive;
+
+}
+
+.reviewBoxTop{
+    height: auto;
+    overflow: auto;
+}
+
+.reviewBox{
+    margin-bottom: 2%;
+}
+.reviewText{
+    color: #0e3854;
+    font-size: 14pt;
+    font-style: italic;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: 0px;
+    border-top: 2px solid #0e3854;
+    border-bottom: 3px solid #0e3854;
+    margin-bottom: 1%;
+
+   
+}
+
+.reviewResponseText{
+    color: #0e3854;
+    font-size: 14pt;
+    font-style: italic;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: 0px;
+    border-bottom: 3px solid #0e3854;
+    margin-bottom: 2%;
+    padding-top: 1%;
+
+}
+
+.msgToDoc{
+    width: 300px;
+    height: 100px;
+    margin-bottom: 1%;
+
+}
+
+.modal-header{
+    background-color: #067eed;
+    color: #ffffff;
+}
+
+.imgBlock img{
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    float: left;
+
+}
+
+.profileBlock1{
+    margin-right: 1%;
+    margin-bottom: 1%;
+    min-width: 510px;
+    padding: 1%;
+    border: 0px solid #067eed;
+    position: relative;
+
+
+}
+
+.profileMainData{
+    margin-left: 5%;
+    display: inline-block;
+
+}
+
+
+.userFName{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20pt;
+    font-weight: bold;
+    font-style: italic;
+    color: #0e3854;
+    
+}
+
+.userFName, .userDOB, .userLocation, .userCitation, .expInProfile{
+    display: block;
+    color: #0e3854;
+}
+
+.userDOB, .userLocation, .expInProfile{
+    font-family:monospace;
+    font-size: 16pt;
+    font-weight: bold;
+    text-align: center;
+    color: #0e3854;
+}
+
+.fa{
+    display: inline-block;
+}
+
+.first{
+    margin-left: 30%;
+}
+
+.userCitation{
+    font-family: cursive;
+    font-size: 16pt;
+    text-align: center;
+    color: #0e3854;
+
+}
+
+.profileBlockRight{
+    padding: 1%;
+    margin-bottom: 1%;
+    margin-right: 1%;
+    min-width: 510px;
+    border: 0px solid #067eed;
+
+}
+
+.articleBlock, .doctorBlock{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-height: 200px;
+    max-width: 450px;
+    overflow-y: scroll;
+    
+
+    
+
+}
+
+.articleBlock .title, .doctorBlock .title {
+    font-family:monospace;
+    font-size: 16pt;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    color: #0e3854;
+
+}
+
+.articleListElement{
+    font-family:monospace;
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: left;
+    color: #0e3854;
+    text-decoration: none;
+    max-width: 100%;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+
+
+}
+
+.articleListElement:hover{
+    color: #067eed;
+}
+
+.illnessesBox{
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-right: 1%;
+    padding-left: 0;
+    max-height: 650px;
+    min-width: 520px;
+    overflow: scroll;
+    display: inline-block;
+    
+}
+
+.illness, .treatment{
+    border: 2px solid #067eed;
+    width: 95%;
+    max-height: 450px;
+    padding: 1%;
+    margin-bottom: 2%;
+
+}
+
+.diagnose, .specialization, .describtion, .document{
+    display: block;
+}
+.diagnose{
+    font-family:monospace;
+    font-size: 18pt;
+    text-align: left;
+    color: #0e3854;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+}
+
+.date{
+    font-family:monospace;
+    font-size: 13pt;
+    text-align: left;
+    color: gray;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.activeIllness, .solvedIllness, .activeTreatment{
+    position: absolute;
+    right: 10px;
+    top:-10px;
+    color: #ff7c1f;
+
+}
+
+.result{
+    position: absolute;
+    right: 10px;
+    top:0px;
+    font-size: 14pt;
+    color: #ff7c1f;
+}
+
+.solved{
+    
+    color: green;
+
+}
+.inProcess{
+
+    color: #ff7c1f;
+
+}
+
+.notSolved{
+    
+    color: red;
+
+}
+
+.solvedIllness{
+    color: #00aa33;
+}
+
+.activeIllness{
+    color: #aa0000;
+}
+
+.specialization{
+    font-family:monospace;
+    font-size: 18pt;
+    text-align: left;
+    color: #0e3854;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.procedure, .methodology{
+    width: 100%;
+    font-family:monospace;
+    font-size: 18pt;
+    text-align: left;
+    color: #0e3854;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+}
+
+.methodology{
+    font-size: 14pt;
+}
+
+.describtion{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14pt;
+    text-align: left;
+    color: #0e3854;
+    text-decoration: none;
+    width: 95%;
+   
+}
+
+.describtion article{
+    border: 2px solid rgb(230, 178, 182);
+    font-size: 12pt;
+    margin-left: 10%;
+    height: auto;
+    max-height: 250px;
+    word-wrap: break-word;
+    overflow: scroll;
+}
+
+.forIllness, .forTreatment{
+    font-size: 12pt;
+    width: 18%;
+    left:10px;
+    margin-left: 2%;
+}
+
+.document{
+    margin-top: 1%;
+    padding: 1%;
+    font-size: 14pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #0e3854;
+    color: #ffffff;
+    border-radius: 10px;
+    border: 0px;
+}
+
+.document:hover{
+    transition-duration: 400ms;
+    background-color: #ffffff;
+    color: #0e3854;
+    border: 1px solid #0e3854;
+
+
+}
+
+.editProfileBtn, .registryBtn, .anamnesisBtn{
+    background-color: #ffffff;
+    font-size: 16pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #0e3854;
+    border-radius: 10px;
+    border: 4px solid #095283;
+    display: block;
+    margin: auto;
+    width: 95%;
+    margin-bottom: 1%;
+
+    
+
+}
+
+.editProfileBtn:hover, .registryBtn:hover, .anamnesisBtn:hover, .navigationBtn:hover{
+    background-color: rgb(0, 161, 153);
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.BtnGroup{
+    border: 0px;
+}
+
+.profileBlock1 .education {
+    display: block;
+}
+
+.requestStatus{
+    font-size: 12pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.requestActionResult{
+    color: black;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+
+.ConsultancyBlock, .RequestBlock{
+    max-height: 150px;
+    overflow: scroll;
+    border: 3px solid #00a552;
+    margin-bottom: 2%;
+    border-radius: 10px;
+    padding: 1%;
+
+}
+
+.RequestBlock{
+    border-color: #ffdd1f;
+}
+
+.currentConsultancyBlock{
+    border-color: #ff7c1f;
+}
+
+.ConsultancyBlock h4, .RequestBlock h4{
+    text-align: center;
+    color: #0e3854;
+    font-weight: bold;
+
+
+}
+a{
+    text-decoration: none;
+
+}
+.ConsultancyBlock a, .RequestBlock a, .learningText{
+    font-family:monospace;
+    font-size: 16pt;
+    text-align: left;
+    color: #0e3854;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.learningText{
+    color:rgb(107, 103, 103);
+}
+
+.ConsultancyBlock a:hover, .RequestBlock a:hover{
+    
+    color: #237bb5;
+    
+}
+
+.inputForReview{
+    width: 80%;
+    height: 150px;
+    font-size: 14pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #0e3854;;
+
+}
+.outerArtBlock{
+    width: 100%;
+
+}
+.profileArticleBlock{
+    width: 100%;
+    min-height: 250px;
+    min-width: 500px;
+    max-width: 90%;
+    border: 10px solid #55132c;
+    border-radius: 50px;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    height: auto;
+    float: left;
+    overflow: auto;
+    padding: 2%;
+    position: relative;
+}
+
+.article_title{
+    font-family:monospace;
+    font-size: 18pt;
+    font-weight: bold;
+    text-align: left;
+    display: inline;
+    color: #a12554;
+    display: block;
+    max-width: 50%;
+}
+.publishDate{
+    font-family:monospace;
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: left;
+    display: inline;
+    color: #62686b;
+}
+
+.author{
+    font-family:cursive;
+    font-size: 20pt;
+    font-weight: bold;
+    text-align: left;
+    display: block;
+    color: #a12554;
+}
+
+.approvedByNum{
+    border-radius: 15px;
+    border: 2px solid #a12554;
+    background-color: #a12554;
+    color: #ffffff;
+    font-size: 14pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    padding: 0.5%;
+    display: block;
+}
+
+.approvedArticleStatus{
+    border-radius: 15px;
+    border: 2px solid #158d29;
+    background-color: #158d29;
+    color: #ffffff;
+    font-size: 14pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    padding: 0.5%;
+}
+
+.unapprovedArticleStatus{
+    border-radius: 15px;
+    border: 2px solid #62686b;
+    background-color: #62686b;
+    color: #ffffff;
+    font-size: 14pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    padding: 0.5%;
+}
+
+.articleBody{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14pt;
+    font-weight: lighter;
+    text-align: left;
+    color: #4e1229;
+    max-height: 110px;
+    overflow: auto;
+    margin-bottom: 30px;
+
+}
+
+.likeBtn {
+    position: absolute;
+    right:70px;
+    width:35px; 
+    height:35px; 
+    background-image: url('unlikeIcon.JPG');  
+    background-size: 35px 35px; 
+    border: 0px;            
+    
+}
+
+.likedBtn{
+    background-image: url('likeIcon.JPG');  
+}
+
+/*.likeBtn:hover{
+    background-image: url('likeIcon.JPG');  
+
+}   
+
+.likedBtn:hover{
+    background-image: url('unlikeIcon.JPG');  
+}*/
+
+
+.favBtn{
+    position: absolute;
+    right:30px;
+    width:35px; 
+    height:35px; 
+    background-image: url('unfavIcon.JPG');  
+    background-size: 35px 35px; 
+    border: 0px;  
+}
+
+.favedBtn{
+    background-image: url('favIcon.JPG');  
+}
+
+/*.favBtn:hover{
+    background-image: url('favIcon.JPG');  
+}   
+
+.favedBtn:hover{
+    background-image: url('unfavIcon.JPG');  
+
+}*/
+
+.btnFullArticle, .btnEditArticle{
+    background-color: #a12554;
+    border: 2px solid #a12554;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: relative;
+    vertical-align: bottom;
+    margin-left: 1%;
+    margin-right: 2%;
+    margin-top: 1%;
+    
+
+}
+
+.writeArticle, .approveArticle{
+    background-color: #0e3854;
+    border: 2px solid #0e3854;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 1%;
+   
+}
+
+.approveArticle{
+    background-color: #ff7c1f;
+    border: 2px solid #ff7c1f;
+    color: #ffffff;
+
+
+}
+
+.writeArticle:hover, .approveArticle:hover{
+    background-color: #ffffff;
+    border: 2px solid #0e3854;
+    transition-duration: 400ms;
+    border-radius: 10px;
+    color: #0e3854;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.approveArticle:hover{
+    border: 2px solid #ff7c1f;
+    background-color: #ffffff;
+    color: #ff7c1f;
+
+}
+
+.btnEditArticle{
+    background-color: #0e3854;
+    border: 2px solid #0e3854;
+   
+    
+
+}
+
+.btnEditArticle:hover{
+    background-color: #ffffff;
+    border: 2px solid #0e3854;
+    color: #0e3854;
+    transition-duration: 400ms;
+
+}
+
+.btnFullArticle:hover {
+    background-color: #ffffff;
+    border: 2px solid #a12554;
+    transition-duration: 400ms;
+    border-radius: 10px;
+    color: #a12554;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.searchbarArticle input{
+    border-color: #a12554;
+    
+}
+
+.searchbarArticle button{
+    background-color: #a12554;
+    border-color: #a12554;
+
+}
+
+.searchbarArticle button:hover{
+    color: #a12554;
+}
+
+.articleBody{
+    max-height: 700px;
+}
+
+.articleBodyShort{
+    max-height: 200px;
+}
+
+.reviewResponseBox{
+    margin-left: 5%;
+}
+
+.reviewResponseBox h6{
+    display: inline;
+    
+}
+
+.articleReviews{
+    border: 0px;
+}
+
+.btnApprove{
+    background-color: #158d29;
+    border: 2px solid #158d29;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: relative;
+    vertical-align: bottom;
+    margin-left: 2%;
+
+}
+
+.btnApprove:hover{
+    transition-duration: 400ms;
+    background-color: #0e621c;
+
+}
+
+.btnDisapprove{
+    background-color: #b11010;
+    border: 2px solid #b11010;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: relative;
+    vertical-align: bottom;
+    margin-left: 2%;
+
+}
+
+.btnDisapprove:hover{
+    transition-duration: 400ms;
+    background-color: #7a0909;
+
+}
+
+.requestBlock{
+    min-width: 500px;
+    position: relative;
+    border: 4px solid #0e3854;
+    margin-top: 2%;
+    margin-left: 5%;
+
+}
+
+.requestTopRow{
+    padding: 1%;
+}
+
+.rightTopCorner{
+    margin-left: 5%;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.inRequestImg{
+    display: inline-block;
+}   
+
+.patientDetailBlock{
+    vertical-align: top;
+    display: inline-block;
+   
+}
+
+span.doctorNameLink{
+    text-align: center;
+    color: #0d6efd;
+}
+span.doctorNameLink:hover{
+    color: #0e3854;
+}
+
+.patientName{
+    display: block;
+
+}
+
+
+
+.patientDOB, .patientLocation{
+    font-family:monospace;
+    font-size: 17pt;
+    text-align: left;
+    color: gray;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+
+}
+
+
+
+.patientAnamnesis, .patientRegistry{
+    display: inline-block;
+    font-family:monospace;
+    font-size: 22pt;
+    color: #ff7c1f;
+}
+
+.patientRegistry{
+    display: inline-block;
+    top:40px;
+}
+
+.messagePart{
+    padding: 1%;
+    margin-left: 1%;
+    
+}
+
+.patientMessage{
+    max-height: 150px;
+    font-size: 15pt;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 2px solid #134c72;
+    margin-bottom: 2%;
+    padding: 1%;
+    word-wrap: break-word;
+    overflow-y: scroll;
+    display: block;
+    display: block; 
+    width: 100%;
+}
+
+span.header{
+    border: 0px;
+    margin-bottom: 0px;
+    font-size: 17pt;
+    color: #0e3854;
+
+}
+
+.doctorComments{
+    max-height: 200px;
+    font-size: 15pt;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 2px solid #218b86;
+    margin-bottom: 2%;
+    padding: 1%;
+    overflow: scroll;
+    display: block; 
+    width: 100%;
+
+
+
+}
+
+.doctorConclusion{
+    max-height: 150px;
+    font-size: 15pt;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 2px solid #09aec3;
+    margin-bottom: 2%;
+    padding: 1%;
+    overflow: scroll;
+    display: block; 
+    width: 100%;
+
+}
+.smallBtn{
+    background-color: #ffffff;
+    border: 2px solid #09aec3;
+    border-radius: 15px;
+    color: #09aec3;
+    font-size: 12pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 1%;
+    margin-right: 1%;
+
+}
+
+.smallBtn:hover{
+    background-color: #09aec3;
+    color: #ffffff;
+    transition-duration: 400ms;
+
+
+}
+
+.smallBtnArticle{
+    border-color: #a12554;
+    color: #a12554;
+
+}
+
+.smallBtnArticle:hover{
+    visibility: visible;
+
+    background-color: #a12554;
+    color: #ffffff;
+
+    transition-duration: 400ms;
+
+}
+
+.forComment{
+    border: 2px solid #218b86;
+    color: #218b86;
+
+}
+
+.forComment:hover{
+    background-color: #218b86;
+    color: #ffffff;
+    transition-duration: 400ms;
+}
+
+.forPatientMSG{
+    border: 2px solid #134c72;
+    color: #134c72;
+
+}
+
+.forPatientMSG:hover{
+    background-color: #134c72;
+    color: #ffffff;
+    transition-duration: 400ms;
+}
+
+
+.btnDiagnose{
+    background-color: #0694a7;
+    border: 2px solid #0694a7;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: relative;
+    vertical-align: bottom;
+    margin-left: 2%;
+    margin-bottom: 2%;
+
+}
+
+.btnDiagnose:hover{
+    transition-duration: 400ms;
+    background-color: #087b8a;
+}
+
+.btnReturnBack{
+    background-color: #0e3854;
+    border: 2px solid #0e3854;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: relative;
+    vertical-align: bottom;
+    margin-left: 2%;
+    margin-bottom: 2%;
+}
+
+.btnReturnBack:hover{
+    transition-duration: 400ms;
+    background-color: #ffffff;
+    color: #0e3854;
+}
+
+.BtnGroup{
+    border: 0px;
+}
+
+.selectSpecBtn{
+    background-color: #ffffff;
+    color: #024d18;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    
+}
+
+.specializationOption{
+    margin-left: 5%;
+    font-size: 12pt;
+    color: #024d18;
+}
+
+.saveChange, .passwordConfirmBtn{
+    background-color: #ffffff;
+    font-size: 12pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #024d18;
+    border-radius: 10px;
+    border: 4px solid #024d18;
+    
+
+    display: inline;
+    width: 15%;
+    margin-bottom: 1%;
+}
+
+.inputFieldsSmaller{
+    width: 75%;
+    display: inline;
+    font-size: 16pt;
+    color: #0e3854;
+    margin-right: 1%;
+    border: 2px solid #0e3854;
+
+}
+
+.saveChange:hover, .passwordConfirmBtn:hover{
+    transition-duration: 400ms;
+    background-color: #036c23;
+    font-size: 12pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #ffffff;
+    border-radius: 2px;
+    border: 4px solid #036c23;
+    border-radius: 10px;
+    display: inline;
+    margin-bottom: 1%;
+}
+
+.userDetailsForm{
+    margin-bottom: 5%;
+}
+
+.navigationBtn{
+    background-color: #ffffff;
+    font-size: 16pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #0e3854;
+    border-radius: 10px;
+    border: 4px solid #095283;
+    display: block;
+    width: 80%;
+    margin-bottom: 1%;
+}
+
+
+.userDetailsForm .anamnesisDetails{
+    border: 3px solid #095283;
+    max-height: 150px;
+    overflow: scroll;
+}
+
+.inputAnamnesis{
+
+    font-size: 14pt;
+    font-weight: bold;
+    color: #0e3854;
+
+}
+.anamnesisDetails span{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14pt;
+    color: #0e3854;
+}
+
+.anamnesisDetails label{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16pt;
+    text-decoration: underline;
+    color: #0e6841;
+
+}
+
+.tooltipLabel{
+    visibility: hidden;
+    width: 300px;       
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    left: 100%;
+    
+      
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltipInput{
+    visibility: visible;
+}
+
+.tooltipInput:hover .tooltipLabel{
+
+    visibility: visible;
+
+}
+
+label, .labelText{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14pt;
+    text-decoration: underline;
+    color: #62686b;
+
+}
+
+label:hover{
+    color: #09aec3;
+
+}
+
+.adviceLabel{
+    visibility: hidden;
+}
+
+.pendingRequestBlock, .pendingRequestBlock .patientMessage{
+    border-color: #0380ae;
+}
+
+.pendingRequestBlock .patientMessage{
+    color: #00445c;
+}
+
+.btnReaddress{
+    background-color: #ff7c1f;
+    border: 2px solid #ff7c1f;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: relative;
+    vertical-align: bottom;
+    margin-left: 2%;
+    margin-bottom: 2%;
+
+}
+
+.btnReaddress:hover{
+    transition-duration: 400ms;
+    background-color: #d36617;
+
+}
+
+.articleEditorHeader, .articleEditorLabels{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20pt;
+    font-weight: bold;
+    font-style: italic;
+    color: #a12554;
+
+}
+
+.articleEditorLabels{
+    font-size: 15pt;
+    font-style: normal;
+
+
+}
+
+.articleForm{
+
+    margin-left: 1%;
+    padding: 1%;
+   
+
+}
+
+.articleForm input, .articleForm textarea {
+    max-height: 300px;
+    font-size: 15pt;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 2px solid #a12554;
+    margin-bottom: 2%;
+    overflow: scroll;
+    color: #7a0909;
+}
+
+.articleForm textarea{
+    height: 300px;
+}
+
+.btnPost{
+    background-color: #0694a7;
+    border: 2px solid #0694a7;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: relative;
+    vertical-align: bottom;
+    margin-left: 2%;
+    margin-bottom: 2%;
+
+}
+
+.registryHeader{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 30pt;
+    font-weight: bold;
+    font-style: italic;
+    color: #00445c;
+    margin-bottom: 2%;
+    display: inline-block;
+
+}
+
+.filesBlock{
+    overflow-x: scroll;
+    overflow-y:scroll;
+    max-height: 300px;
+    margin-left: 15%;
+}
+
+.filesBlock embed{
+    display: inline;
+}
+
+.illnessesHeader, .treatmentsHeader{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20pt;
+    font-weight: bold;
+    font-style: italic;
+    color: #a12554;
+    display: inline-block;
+}
+
+.illnessesHeader{
+    color: #a12527;
+
+}
+
+.treatmentsHeader{
+    color: #024d18;
+}
+
+.illnessBox{
+    border: 2px solid #a12527;
+    padding: 2%;
+    margin-bottom: 30px;
+    position: relative; 
+}
+
+.hiddenBox{
+    transition-duration: 400ms;
+    display: none;
+}
+
+.shownBox{
+    transition-duration: 400ms;
+    display: block;
+}
+
+.treatmentBox {
+    border: 2px solid #024d18;
+    padding: 2%; 
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.illnessBox .title, .treatmentBox .title{
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15pt;
+    font-weight: bold;
+    font-style: italic;
+    color: #00445c;
+}
+
+.illnessBox .date, .treatmentBox .date{
+    font-family:monospace;
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: left;
+    display: inline;
+    color: #62686b;
+}
+
+.illnessBox .describtion, .treatmentBox .describtion{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 13pt;
+    color: #0e3854;
+    max-height: 150px;
+    overflow: scroll;
+    word-wrap: break-word;
+    margin-left: 1%;
+    border: 2px solid #a12554;
+    padding: 1%;
+    display: inline-block;
+
+
+}
+
+.treatmentBox .describtion{
+    border-color: #024d18;
+
+}
+
+.illnessBox .documents, .treatmentBox .documents{
+  
+    border-radius: 10px;
+    color: #0694a7;
+    font-size: 15pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: relative;
+    vertical-align: bottom;
+    margin-left: 2%;
+    margin-bottom: 2%;
+}
+
+.illnessBox .activeIllness, .solvedIllness{
+    font-size: 15pt;
+    top:0px;
+
+}
+
+.addIllnessBtn, .addTreatmentBtn, .editIllnessBtn, .editTreatmentBtn {
+    background-color: #0e3854;
+    border: 2px solid #0e3854;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 12pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: relative;
+    vertical-align: bottom;
+    margin-left: 1%;
+    margin-bottom: 2%;
+
+
+}
+
+.editIllnessBtn, .editTreatmentBtn{
+    display: block;
+
+}
+
+.addIllnessBtn:hover, .addTreatmentBtn:hover, .editIllnessBtn:hover, .editTreatmentBtn:hover {
+    background-color: #ffffff;
+    color: #0e3854;
+    transition-duration: 400ms;
+
+
+
+}
+
+
+
+.fileInput{
+    background-color: #0e3854;
+    border: 2px solid #0e3854;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 14pt;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: relative;
+    vertical-align: bottom;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    max-width: 400px;
+    
+}
+
+.selectSpecBtnforIllness{
+    margin-left: 0px;
+}
+
+.usernameIsUsed{
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 13pt;
+    color: red;
+
+}
+
+.chatElement{
+    margin-bottom: 5%;
+    margin-right: 20%;
+
+    padding: 2%; 
+    padding-bottom: 3%;  
+    border: 4px double #09aec3; 
+    border-radius: 15px; 
+    border-top-left-radius: 0px; 
+    max-width:70%; 
+    word-wrap: break-word; 
+    float: left;
+
+
+}
+
+.chatElement2{
+    margin-bottom: 5%;
+     padding: 2%; 
+     padding-bottom: 3%; 
+     background-color: #09aec3;
+     border: 4px solid #09aec3; 
+     border-radius: 15px; 
+     border-top-right-radius: 0px;  
+     max-width:70%; 
+     word-wrap: break-word; 
+     position:relative; 
+     right:0%;  
+     display: inline-block;
+     margin-left: 20%;
+     float: right;
+}
+
+.chatElementContainer{
+    width: 100%; 
+    background-color: white; 
+    border-color: white; 
+    position: relative; 
+    margin-bottom: 13%;
+    max-width:90%; 
+    display: block;
+
+
+
+}
+
+.chatElementContainer2{
+    width: 100%; 
+    margin-left: 10%; 
+    background-color: white; 
+    border-color: white; 
+    position: relative; 
+    margin-bottom: 20%;
+    max-width:90%; 
+    display: block;
+
+
+}
+
+.chatMessageText{
+    font-size: 12pt; 
+    font-weight: 400; 
+    color: #02626f; 
+}
+
+.chatElement2 .chatMessageText{
+    color: #ffffff;
+}
+
+.chatMessageDate{
+    font-size: 8pt; 
+    font-weight: bold; 
+    float: right; 
+    color: gray;
+
+}
+
+.chatElement2 .chatMessageDate{
+    color: #ffffff;
+}
+
+.chatElementContainer{
+    position: relative;
+}
+
+
+.inputForChat{
+    padding:1%; 
+    width:60%; 
+    position: relative; 
+    left:25%; 
+    border-radius: 20px; 
+    border: 2px solid #09aec3;
+}

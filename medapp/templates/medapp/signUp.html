@@ -1,0 +1,147 @@
+{% extends 'medapp/base.html' %}
+
+{% block belowNavbar%}
+            <div class="row">
+                <div class="col-lg">
+                    <h1>SignUp</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+
+                </div>
+                <div class="col-lg-6">
+                    <form action="{% url 'signUp' %}" method="POST">
+
+                        {% csrf_token %}
+                         
+                         <div id="emailHelp" class="form-text formTitle">Complete form to sign up</div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" name="InputAccountType" type="checkbox" value="doctorAccount" id="InputAccountType">
+                            <label class="form-check-label" for="InputAccountType">Do you want to create doctor account?</label>
+                        </div>
+                        
+                        <div class="mb-3">
+                        
+                            <input type="radio" name="malefemale"  id="InputMale" value = "Male">
+                            <label for="InputMale" class="form-label">Male</label>
+
+                            <br>
+                            <input type="radio" name="malefemale"  id="InputMale" value = "Female">
+                            <label for="InputFemale" class="form-label">Female</label>
+
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="InputEmail" class="form-label">Email address</label>
+                          <input type="email" name="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="bagirov@mail.ru" required>
+                          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputTelphone" class="form-label">Telphone</label>
+                            <input type="text" name="telphone" class="form-control" id="InputTelphone" placeholder="+79151257689" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputUsername" class="form-label">Username</label>
+                            <input type="text" name="usernameInput" class="form-control" id="InputUsername" placeholder="aBagirov" data-url ="{% url 'checkUsername' %}" onchange="checkUsername(this);" required>
+                            <label for="InputUsername" class="form-label" id="usernameValidation"></label>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputFirstname" class="form-label">First Name</label>
+                            <input type="text" name="firstName" class="form-control" id="InputFirstname" placeholder="Akshin" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputSecondname" class="form-label">Second Name</label>
+                            <input type="text" name="secondName" class="form-control" id="InputSecondname" placeholder="Bagirov" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputDOB" class="form-label">Date of Birth</label>
+                            <input type="date" name="dob" class="form-control" id="InputDOB" onkeyup="inputDOB(this)" maxlength="10" placeholder="2000-04-25" required>
+                            <label class="form-check-label" for="InputPassword" id="dobValidation"></label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputCity" class="form-label">City Name</label>
+                            <input type="text" name="city" class="form-control" id="InputCity" placeholder="Moscow">
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputCountry" class="form-label">Country Name</label>
+                            <input type="text" name="country" class="form-control" id="InputCountry" placeholder="Russia">
+                        </div>
+                        <span class="forDoctorSignUp" style="display: none;">
+
+                        <div class="mb-3">
+                            <label for="InputWorkPlace" class="form-label">Work place</label>
+                            <input type="text" name="work" class="form-control" id="InputWorkPlace" placeholder="Bagirov clinics" >
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="InputEducation" class="form-label">Education</label>
+                            <input type="text" name="education" class="form-control" id="InputEducation" placeholder="Sechenov 1-st Med" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputAboutMe" class="form-label">About me</label>
+                            <input type="text" name="aboutMe" class="form-control" id="InputAboutMe" placeholder="I am ...">
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputCountry" class="form-label">Experience: when did you start working?</label>
+                            <input type="date" name="experience" class="form-control" id="InputExperience" onkeyup="inputExperience()" maxlength="10" placeholder="2000-04-25" >
+                            <label class="form-check-label" for="InputPassword" id="experienceValidation"></label>
+
+                        </div>
+                        </span>
+                        <div class="mb-3">
+                          <label for="InputPassword" class="form-label">Password</label>
+                          <input type="password" name="password" class="form-control" id="InputPassword" required>
+                          <label class="form-check-label" for="InputPassword" id="passwordValidation"></label>
+                        </div>
+                    
+                        
+                        <div class="mb-3">
+                            <label for="InputConfirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" name="confirm_password" class="form-control" id="InputConfirmPassword" onkeyup="checkPasswords();" required>
+                        </div>
+
+        
+                        <span class="forDoctorSignUp"  style="display: none;">
+
+                          <div class="dropdown selectSpecBtn">
+                            <a class="btn btn-success dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                              Select you specialization
+                            </a>
+                          
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                              <li class="specializationOption"><input class="form-check-input InputAccountType" type="checkbox" name="specialization" id="InputAccountTypeID" value="Surgeon"> Surgeon </li>
+                              <li class="specializationOption"><input class="form-check-input InputAccountType" type="checkbox" name="specialization" id="InputAccountTypeID" value="Allergist"> Allergist</li>
+                              <li class="specializationOption"><input class="form-check-input InputAccountType" type="checkbox" name="specialization" id="InputAccountTypeID" value="Therapist"> Therapist</li>
+                              <li class="specializationOption"><input class="form-check-input InputAccountType" type="checkbox" name="specialization" id="InputAccountTypeID" value="Cardiologist"> Cardiologist</li>
+                              <li class="specializationOption"><input class="form-check-input InputAccountType" type="checkbox" name="specialization" id="InputAccountTypeID" value="Neurologist"> Neurologist</li>
+                              <li class="specializationOption"><input class="form-check-input InputAccountType" type="checkbox" name="specialization" id="InputAccountTypeID" value="Oncologist"> Oncologist</li>
+                              <li class="specializationOption"><input class="form-check-input InputAccountType" type="checkbox" name="specialization" id="InputAccountTypeID" value="Immunologist"> Immunologist</li>
+                              <li class="specializationOption"><input class="form-check-input InputAccountType" type="checkbox" name="specialization" id="InputAccountTypeID" value="Ophtalmologist"> Ophtalmologist</li>
+                              <li class="specializationOption"><input class="form-check-input InputAccountType" type="checkbox" name="specialization" id="InputAccountTypeID" value="Dietologist"> Dietologist</li>
+                              <li class="specializationOption"><input class="form-check-input InputAccountType" type="checkbox" name="specialization" id="InputAccountTypeID" value="ENT"> ENT</li>
+
+
+
+
+
+                            </ul>
+                        </div>
+                        </span>
+                        
+                        
+                        <button type="submit" class="btn btn-primary formBtn" id="submitSignUp" style="margin-bottom: 2%;">Submit</button>
+                      </form>
+                </div>
+                
+
+                
+                
+            </div>
+            
+                     
+
+        {% endblock belowNavbar%}
+

@@ -1,0 +1,81 @@
+{% extends 'medapp/articlesHomePage.html' %}
+
+{% load static %}
+
+{% block articlesBelowSearchBar %}
+            {{searchQuery}}
+            <br>
+            <div class="row">
+                {% for article in articlesList %}
+                <div class="profileArticleBlock">
+
+                        <span class="article_title" >{{article.title}}</span> 
+                        <span class="publishDate"> &nbsp;- ( {{article.datePosted}} ) -   </span>
+                        <p class="author"> ~ {{article.author.user.first_name}} &nbsp; {{article.author.user.last_name}} ~</p>
+                            <span>
+                                {%  if article.rating == 5 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span> 
+                          {% elif article.rating == 4 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif article.rating == 3 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif doctor.rating == 2 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% elif article.rating == 1 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span> 
+                          {% endif %}
+                            </span>
+                        <span class="approvedByNum"> {{article.numOfApprovals}} Approvals </span>
+                        
+                        {% if user.is_authenticated %}
+
+                        {% if article.id in likedArticlesList %}
+                        <button class="likeBtn likedBtn" data-url="{% url 'likeArticle'%}" id = "{{article.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% else %}
+                        <button class="likeBtn" data-url="{% url 'likeArticle'%}" id = "{{article.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% endif %}
+
+                        {% if article.id in favouriteArticlesList %}
+                        <button class="favBtn favedBtn" data-url="{% url 'favouriteArticle'%}" id = "{{article.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% else %}
+                        <button class="favBtn" data-url="{% url 'favouriteArticle'%}" id = "{{article.id}}" onclick="likeFavDoctor(this)"></button>
+                        {% endif %}
+                        {% endif %}
+                        <hr>
+                        
+
+                        <p class="articleBodyShort articleBody">                     
+                            {{article.body|linebreaksbr}}
+                        </p>
+                        
+                        <a href = "{% url 'showFullArticle' article.id %}"><button type="button" class="btnFullArticle">Read Article</button></a> 
+
+                </div>
+                {% endfor %}
+
+            </div>
+
+
+                
+                
+{% endblock articlesBelowSearchBar %}

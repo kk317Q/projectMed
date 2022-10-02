@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>Your MedAPP</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{% static 'css/style1.css'%}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{% static 'js/script2.js'%}"></script>
+
+
+
+           
+    
+    </head>
+
+    <body>
+       <div class="container-fluid" >
+            <div class="row">
+
+            </div>
+            <!--Nav bar is here VVVV-->
+            <div class="row">
+                <nav class="navbar navbar-expand-lg " style="background-color: #067eed;">
+                     <div class="container-fluid" >
+                        <a class="navbar-brand" href="{% url 'index' %}"> MEDApp</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"> <img class="openMenuIcon" src="{% static 'images/openMenu.png'%}"> </span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                                </li>
+
+                                <li class="nav-item">
+                                  <a class="nav-link" href="{% url 'articlesSection' %}">Articles</a>
+                                </li>
+                                   
+
+                            </ul>
+                                 <!--
+                                    <form class="d-flex">
+                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                  </form> col col-sm col-md col-lg col-xl col-xxl
+                                 --> 
+                            {% if user.is_authenticated %}
+                            <a class="nav-link active" href="{% url 'goLogOut' %}" >LogOut</a>
+                            
+                            <a class="nav-link active" href="{% url 'getProfile' %}" style="margin-left: 1%;">Profile</a>
+                            <a class="nav-link active" href="{% url 'getProfile' %}" style="margin-left: 5%;">Hello, {{user.first_name}}!</a>
+
+
+                            {% else %}
+
+                            <a class="nav-link active" href="{% url 'goLogIn' %}" >LogIn</a>
+                            <a class="nav-link active" href="{% url 'goSignUp' %}" style="margin-left: 5%;">Sign-up</a>
+
+                            {% endif %}
+                            
+                            
+                        </div>
+                    </div>
+                </nav>
+
+            {% block headerOfPage%}
+
+            {% endblock headerOfPage%}
+        </div>
+        <div class = "row" style = "padding-left:4%;">
+
+            {% block belowNavbar %}
+
+            <div class="row">
+                <div class="col-lg">
+                    <h1>Search your doctor at MedAPP</h1>
+                </div>
+            </div>
+            <div class="row" >
+               
+
+                        <form action="{% url 'searchDoctor'%}" class="searchbar mx-auto" method="GET">
+                            <div class="row">
+                                <div class = "col-lg-2">
+                                    <input list="specializations" id="spec-choice" name="specializationForSearch" style="width: 100%;" placeholder="Speciality" />
+                                    <datalist id="specializations">
+                                        <option value="Surgeon">
+                                        <option value="Allergist">
+                                        <option value="Therapist">
+                                        <option value="Cardiologist">
+                                        <option value="Neurologist">
+                                        <option value="Endocrinologist">
+                                        <option value="Oncologist">
+                                        <option value="Immunologist">
+                                        <option value="Ophtalmologist">
+                                        <option value="Dietologist">
+                                        <option value="ENT">
+                                    </datalist>        
+                                   
+                                    </div>
+
+                                    <div class = "col-lg-7"><input  type="text" name="doctorNameforSearch" style="width: 100%;" placeholder="Doctors name or leave it blank" ></div>
+                                    <div class = "col-lg-3"><button type="click" >Search</button></div>
+                            </div>        
+                        </form>
+            </div>
+            
+            <div class="row">
+                {% block homePageTxt %}
+                
+
+                <div class="col-lg introTXT">
+                    <img src="{% static 'images/doctorIcon.png' %}" class="rounded float-left" alt="DOC">
+                    <span class="for"><br>MedApp for doctors. Here you can:</span>
+                    <li>Help others</li>
+                    <li>Receive online consultancy</li>
+                    <li>Write your own articles and share your experince</li>
+                    <li>Become well-known trusted specialist</li>
+                </div>
+                
+                <div class="col-lg introTXT">
+                    <img src="{% static 'images/patientIcon.png' %}" class="rounded float-right" alt="PAT">
+                    <span class="for"><br>MedApp for patients. Here you can:</span>
+                    <li>Find a doctor</li>
+                    <li>Receive online consultancy</li>
+                    <li>Read articles written by our doctors</li>
+                    <li>Share your experience that may help others</li>
+                </div>
+                {% endblock homePageTxt%}
+            </div>
+            <br>
+            <div class="row parentDocCard">
+                
+                <div class="col-lg">
+
+                {% block showDoctors %}
+                
+                        
+                {% endblock showDoctors %}
+    
+                </div>
+            </div>
+            <div class="row">
+                
+            </div>
+
+        {% endblock belowNavbar %} 
+        </div>
+ 
+    </body>
+
+</html>
